@@ -1,0 +1,825 @@
+﻿
+@model IEnumerable<VigCovidApp.ViewModels.ListaTrabajadoresViewModel>
+
+<div id="page-head">
+
+    <div class="pad-all text-center">
+        <h3>SISTEMA DE VIGILANCIA COVID-19</h3>
+
+        <div class="col-4">
+            <select class="selectpicker" id="ddlEmpresaCodigo" name="validateEmpresaCodigo">
+                <option>  </option>
+
+                @for (int i = 0; i < ViewBag.EMPRESASASIGANADAS.Count; i++)
+                {
+                    if (i == 0)
+                    {
+                        <option value="@ViewBag.EMPRESASASIGANADAS[i].Codigo" selected>@ViewBag.EMPRESASASIGANADAS[i].Nombre</option>
+                    }
+                    else
+                    {
+                        <option value="@ViewBag.EMPRESASASIGANADAS[i].Codigo">@ViewBag.EMPRESASASIGANADAS[i].Nombre</option>
+                    }
+
+                }
+            </select>
+        </div>
+    </div>
+</div>
+
+<!--Page content-->
+<!--===================================================-->
+<div id="page-content">
+
+    <div class="row">
+        <div class="col-lg-7">
+
+            <!--Network Line Chart-->
+            <!--===================================================-->
+            <div id="demo-panel-network" class="panel">
+                <div class="panel-heading">
+                    <div class="panel-control">
+                        <button id="demo-panel-network-refresh" class="btn btn-default btn-active-primary" data-toggle="panel-overlay" data-target="#demo-panel-network"><i class="demo-psi-repeat-2"></i></button>
+                        <div class="dropdown">
+                            <button class="dropdown-toggle btn btn-default btn-active-primary" data-toggle="dropdown" aria-expanded="false"><i class="demo-psi-dot-vertical"></i></button>
+                            <ul class="dropdown-menu dropdown-menu-right">
+                                <li><a href="#">Action</a></li>
+                                <li><a href="#">Another action</a></li>
+                                <li><a href="#">Something else here</a></li>
+                                <li class="divider"></li>
+                                <li><a href="#">Separated link</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <h3 class="panel-title">
+                        Casos diarios de sintomáticos no compatibles, compatibles y positivo
+                    </h3>
+                </div>
+
+
+                <!--chart placeholder-->
+                <div class="pad-all">
+                    @*<div id="demo-chart-network" style="height: 255px"></div>*@
+                    <div id="demo-bar-chart" style="height:250px"></div>
+                    <hr class="new-section-xs bord-no">
+                    <ul class="list-inline text-center">
+                        <li><span class="label label-info">354</span> Inicio de síntomas CASOS (+)COVID</li>
+                        <li><span class="label label-warning">74</span> Cuadro clínico no compatible COVID19</li>
+                        <li><span class="label label-danger">25</span>  Cuadro clínico compatible COVID19</li>
+                        <li><span class="label label-success">25</span>  Inicio de casos hospitalizados</li>
+                    </ul>
+                </div>
+
+            </div>
+            <!--===================================================-->
+            <!--End network line chart-->
+
+        </div>
+        <div class="col-lg-5">
+            <div class="row">
+                <div class="col-sm-6 col-lg-6">
+
+                    <!--Sparkline Area Chart-->
+                    <div class="panel panel-success panel-colorful">
+                        <div class="pad-all">
+                            <p class="text-lg text-semibold"><i class="demo-pli-data-storage icon-fw"></i> Positivos</p>
+                            <p class="mar-no">
+                                <span class="pull-right text-bold" id="info-TotalIgM"></span> IgM
+                            </p>
+                            <p class="mar-no">
+                                <span class="pull-right text-bold" id="info-TotalIgG"></span> IgG
+                            </p>
+                            <p class="mar-no">
+                                <span class="pull-right text-bold" id="info-TotalIgMeIgG"></span> IgM e IgG
+                            </p>
+                        </div>
+                        <div class="pad-top text-center">
+                            <div id="demo-sparkline-area" class="sparklines-full-content"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-6">
+
+                    <!--Sparkline Line Chart-->
+                    @*<button class="btn btn-primary" data-toggle="modal" data-target="#modal-registrar-trabajador"><i class="demo-pli-add icon-fw"></i>Agregar nuevo trabajador</button>*@
+                    <div class="panel panel-info panel-colorful cursor-pointer" data-toggle="modal" data-target="#modal-info-altas">
+                        <div class="pad-all">
+                            <p class="text-lg text-semibold">Alta</p>
+                            <p class="mar-no">
+                                <span class="pull-right text-bold" id="info-AltasHoy"></span> Hoy
+                            </p>
+                            <p class="mar-no">
+                                <span class="pull-right text-bold" id="info-AltasTotal"></span> Total
+                            </p>
+                        </div>
+                        <div class="pad-top text-center">
+
+                            <!--Placeholder-->
+                            <div id="demo-sparkline-line" class="sparklines-full-content"></div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @*<div class="row">
+                <div class="col-sm-6 col-lg-6">
+
+                    <div class="panel panel-purple panel-colorful">
+                        <div class="pad-all">
+                            <p class="text-lg text-semibold"><i class="demo-pli-basket-coins icon-fw"></i> Asintomáticos</p>
+                            <p class="mar-no">
+                                <span class="pull-right text-bold"></span> Hoy
+                            </p>
+                            <p class="mar-no">
+                                <span class="pull-right text-bold">44</span> Hace 7 días
+                            </p>
+                        </div>
+                        <div class="text-center">
+
+
+                            <div id="demo-sparkline-bar" class="box-inline"></div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-6">
+
+
+                    <div class="panel panel-warning panel-colorful">
+                        <div class="pad-all">
+                            <p class="text-lg text-semibold">Sintomáticos</p>
+                            <p class="mar-no">
+                                <span class="pull-right text-bold">5</span> Hoy
+                            </p>
+                            <p class="mar-no">
+                                <span class="pull-right text-bold">48</span> Hace 7 días
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>*@
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="panel">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Lista de trabajadores</h3>
+                </div>
+
+                <div class="panel-body">
+                    <div class="pad-btm form-inline">
+                        <div class="row">
+                            <div class="col-sm-6 table-toolbar-left">
+                                <button class="btn btn-primary" data-toggle="modal" data-target="#modal-registrar-trabajador"><i class="demo-pli-add icon-fw"></i>Agregar nuevo trabajador</button>
+                                <button class="btn btn-default"><i class="demo-pli-printer icon-lg"></i></button>
+                            </div>
+                            <div class="col-sm-6 table-toolbar-right">
+                                <div class="form-group">
+                                    <input type="text" autocomplete="off" class="form-control" placeholder="Buscar" id="input-search">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <table id="table-Lista-Trabajadores"
+                           class="table table-bordered table-hover toggle-circle"
+                           data-page-size="20">
+                        <thead>
+                            <tr>
+                                <th data-sort-initial="true" data-toggle="true">Trabajador</th>
+                                <th>DNI</th>
+                                <th data-hide="phone, tablet">Edad</th>
+                                <th data-hide="phone, tablet">Fecha Ingreso</th>
+                                <th data-hide="phone, tablet" class="text-center">Modo de ingreso</th>
+                                <th data-hide="phone, tablet" class="text-center">Estado Actual</th>
+                                @*<th data-hide="phone, tablet" class="text-center">Clasificación Actual</th>*@
+                                <th data-hide="phone, tablet" class="text-center">Comentario Actual</th>
+                                @*<th data-hide="phone, tablet" class="text-center">Último seguimiento</th>*@
+                                <th data-hide="phone, tablet" class="text-center">Contador Seguimientos</th>
+                                <th data-hide="phone, tablet" class="text-center">Días sin Síntomas </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var trabajador in Model)
+                            {
+                                <tr>
+                                    @if (trabajador.Alerta)
+                                    {
+                                        <td><a href="/MonitoringWorker/RegisterMonitoring?id=@trabajador.RegistroTrabajadorId" class="btn-link">@Html.DisplayFor(modelItem => trabajador.NombreCompleto)<span class="parpadea text"> ¡Alta!</span> </a></td>
+                                    }
+                                    else
+                                    {
+                                        <td><a href="/MonitoringWorker/RegisterMonitoring?id=@trabajador.RegistroTrabajadorId" class="btn-link">@Html.DisplayFor(modelItem => trabajador.NombreCompleto)<span class=""></span> </a></td>
+                                    }
+
+                                    <td>@Html.DisplayFor(modelItem => trabajador.Dni)</td>
+                                    <td><span class="text-muted">@Html.DisplayFor(modelItem => trabajador.Edad)</span></td>
+                                    <td>@Html.DisplayFor(modelItem => trabajador.FechaIngreso)</td>
+                                    <td class="text-center">
+                                        @Html.DisplayFor(modelItem => trabajador.ModoIngreso)
+                                    </td>
+                                    <td class="text-center">@Html.DisplayFor(modelItem => trabajador.EstadoDiario)</td>
+                                    @*<td class="text-center">@Html.DisplayFor(modelItem => trabajador.Clasificacion)</td>*@
+                                    <td class="text-center">@Html.DisplayFor(modelItem => trabajador.UltimoComentario)</td>
+                                    @*<td class="text-center">@Html.DisplayFor(modelItem => trabajador.UltimoSeguimiento)</td>*@
+                                    <td class="text-center">@Html.DisplayFor(modelItem => trabajador.ContadorSeguimiento)</td>
+                                    <td class="text-center">@Html.DisplayFor(modelItem => trabajador.DiaSinSintomas)</td>
+                                </tr>
+                            }
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="12" class="footable-visible">
+                                    <div class="text-right">
+                                        <ul class="pagination">
+                                            <li class="footable-page-arrow">
+                                                <a data-page="first" href="#first">«</a>
+                                            </li>
+                                            <li class="footable-page-arrow">
+                                                <a data-page="prev" href="#prev">‹</a>
+                                            </li>
+                                            <li class="footable-page">
+                                                <a data-page="0" href="#">1</a>
+                                            </li>
+                                            <li class="footable-page active">
+                                                <a data-page="1" href="#">2</a>
+                                            </li>
+                                            <li class="footable-page-arrow disabled">
+                                                <a data-page="next" href="#next">›</a>
+                                            </li>
+                                            <li class="footable-page-arrow disabled">
+                                                <a data-page="last" href="#last">»</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<!--===================================================-->
+<!--End page content-->
+<!--Default Bootstrap Modal-->
+<!--===================================================-->
+<div class="modal fade"
+     id="modal-registrar-trabajador"
+     role="dialog"
+     tabindex="-1"
+     aria-labelledby="modal-registrar-trabajador"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!--Modal header-->
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    <i class="pci-cross pci-circle"></i>
+                </button>
+                <h4 class="modal-title">Registro de trabajador</h4>
+            </div>
+
+            <!--Modal body-->
+            <div class="modal-body">
+                <!--Block Styled Form -->
+                <!--===================================================-->
+                <form id="form-registrar-trabajador">
+                    <div class="panel-body">
+                        <p class="bord-btm pad-ver text-main text-bold">Datos Personales</p>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="control-label">Modo de ingreso</label>
+                                    <select class="selectpicker" id="ddlModoIngreso" name="validateModoIngreso">
+                                        <option>  </option>
+                                        <option value="1">Síntomas</option>
+                                        <option value="2">Sospechoso</option>
+                                        <option value="3">Contacto</option>
+                                        <option value="4">Asintomático</option>
+                                        <option value="5">Reingreso</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="control-label">Fecha de ingreso</label>
+                                    <input type="text" id="dtpFechaIngreso" class="form-control" placeholder="dd/mm/yyyy" readonly>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="control-label">Nombre Completo</label>
+                                    <input type="text" class="form-control" id="txtNombreCompleto" name="validateNombreCompleto">
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label class="control-label">DNI</label>
+                                    <input type="text" class="form-control" id="txtDni" name="validateDni">
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label class="control-label">Edad</label>
+                                    <input type="text" class="form-control" id="txtEdad" name="validateEdad">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="control-label">Puesto Trabajo</label>
+                                    <input type="text" class="form-control" id="txtPuestoTrabajo" name="validatePuestoTrabajo">
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label class="control-label">Celular</label>
+                                    <input type="text" class="form-control" id="txtCelular" name="validateCelular">
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label class="control-label">Telf. referencia</label>
+                                    <input type="text" class="form-control" id="txtTelfReferencia" name="validateTelfReferencia">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="control-label">Email</label>
+                                    <input type="text" class="form-control" id="txtEmail" name="validateEmail">
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="control-label">Dirección</label>
+                                    <input type="text" class="form-control" id="txtDireccion" name="validateDireccion">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-footer text-right">
+                        <button class="btn btn-success" id="btnRegistrarTrabajador" type="submit">Registrar</button>
+                    </div>
+                </form>
+                <!--===================================================-->
+                <!--End Block Styled Form -->
+            </div>
+        </div>
+    </div>
+</div>
+<!--===================================================-->
+<!--End Default Bootstrap Modal-->
+<!--===================================================-->
+<!--End page content-->
+
+
+
+
+<!--Default Bootstrap Modal-->
+<!--===================================================-->
+<div class="modal fade"
+     id="modal-info-altas"
+     role="dialog"
+     tabindex="-1"
+     aria-labelledby="modal-info-altas"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!--Modal header-->
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    <i class="pci-cross pci-circle"></i>
+                </button>
+                <h4 class="modal-title">Lista de Altas</h4>
+            </div>
+
+            <!--Modal body-->
+            <div class="modal-body">
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Trabajador</th>
+                                    <th>Segu.</th>
+                                    <th>Sin Sint.</th>
+                                    <th>Con Sint.</th>
+                                    <th>Certif.</th>
+                                </tr>
+                            </thead>
+                            <tbody id="table-altas">
+                                                  
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--===================================================-->
+<!--End Default Bootstrap Modal-->
+
+<div class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered text-center" role="document">
+        <div class="load6">
+            <div class="loader"></div>
+        </div>
+    </div>
+</div>
+
+<script src="~/Scripts/jquery-3.4.1.js"></script>
+<script src="~/Scripts/jquery.flot.min.js"></script>
+<script src="~/Scripts/jquery.flot.categories.min.js"></script>
+<script src="~/Scripts/jquery.flot.orderBars.min.js"></script>
+<script src="~/Scripts/jquery.flot.tooltip.min.js"></script>
+<script src="~/Scripts/jquery.flot.resize.min.js"></script>
+<script src="~/Scripts/bootbox.min.js"></script>
+
+<script>
+
+    $(document).ready(function () {
+
+        //$('#ddlEmpresaCodigo option').attr("selected", "selected");
+        //$('#ddlEmpresaCodigo').selectpicker('refresh');
+
+        IndicadoresGlobalesPorEmpresa($('#ddlEmpresaCodigo').val());
+
+        $('#ddlEmpresaCodigo').on('change', function () {
+            var selected = $(this).find("option:selected");
+            var arrSelected = [];
+            selected.each(function () {
+                arrSelected.push($(this).val());
+            });
+            ActualizarTablaListaTrabajadores(arrSelected[0]);
+            IndicadoresGlobalesPorEmpresa(arrSelected[0]);
+        });
+
+        function ActualizarTablaListaTrabajadores(empresa) {
+
+            $.ajax({
+                type: "GET",
+                url: "/Home/ActualizarGrillaListaTrabajadores?Codigo=" + parseInt(empresa),
+                dataType: 'json',
+                success: function (result) {
+                    var content = "";
+                    for (var i = 0; i < result.length; i++) {
+                        content += '<tr>';
+                        if (result[i].Alerta) {
+                            content += '<td><a href="/MonitoringWorker/RegisterMonitoring?id=' + result[i].RegistroTrabajadorId + '" class="btn-link">' + result[i].NombreCompleto + '<span class="parpadea text"> ¡Alta!</span></a></td>';
+                        } else {
+                            content += '<td><a href="/MonitoringWorker/RegisterMonitoring?id=' + result[i].RegistroTrabajadorId + '" class="btn-link">' + result[i].NombreCompleto + '<span class=""></span></a></td>';
+                        }
+
+                        content += '<td>' + result[i].Dni + '</td>';
+                        content += '<td><span class="text-muted">' + result[i].Edad + '</span></td>';
+                        content += '<td>' + result[i].FechaIngreso + '</td>';
+                        content += '<td class="text-center">' + SetModoIngreso(result[i].ModoIngreso) + '</td>';
+                        content += '<td class="text-center">' + result[i].EstadoDiario + '</td>';
+                        //content += '<td class="text-center">' + result[i].Clasificacion + '</td>';
+                        content += '<td class="text-center">' + result[i].UltimoComentario + '</td>';
+                        //content += '<td class="text-center">' + result[i].UltimoSeguimiento + '</td>';
+                        content += '<td class="text-center">' + result[i].ContadorSeguimiento + '</td>';
+                        content += '<td class="text-center">' + result[i].DiaSinSintomas + '</td>';
+                        content += '</tr>';
+                    }
+                    $("tbody").empty();
+                    $("tbody").append(content);
+                }
+            });
+        }
+
+        function IndicadoresGlobalesPorEmpresa(codigoEmpresa) {
+
+            $.ajax({
+                type: "GET",
+                url: "/Home/IndicadoresPorEmpresa?Codigo=" + parseInt(codigoEmpresa),
+                dataType: 'json',
+                success: function (result) {
+                    $("#info-AltasHoy").text(result.altasHoy);
+                    $("#info-AltasTotal").text(result.altasTotal);
+
+                    $("#info-TotalIgM").text(result.TotalIgM);
+                    $("#info-TotalIgG").text(result.TotalIgG);
+                    $("#info-TotalIgMeIgG").text(result.TotalIgMeIgG);
+                }
+            });
+        }
+
+        $("#form-registrar-trabajador").submit(function (ev) { ev.preventDefault(); });
+
+        $("#btnRegistrarTrabajador").on("click", function () {
+            var bootstrapValidator = $("#form-registrar-trabajador").data('bootstrapValidator');
+            bootstrapValidator.validate();
+            if (bootstrapValidator.isValid()) {
+
+                bootbox.confirm("¿Está seguro de registrar trabajador?", function (result) {
+
+                    var datos = poblarEntidadRegistroTrabajador();
+
+                    if (result) {
+                        $('.modal').modal('show');
+                        $.ajax({
+                            type: "POST",
+                            url: "/Home/RegistrarTrabajador",
+                            data: datos,
+                            success: function (data) {
+                                $('.modal').modal('hide');
+                                window.location = "/Home/Index"
+                            },
+                            error: function (jqXHR, exception) {
+                                alert("Ocurrió un error en la operación")
+                            }
+                        });
+                    } else {
+                        $.niftyNoty({
+                            type: 'danger',
+                            icon: 'pli-cross icon-2x',
+                            message: 'Se canceló la operación.',
+                            container: 'floating',
+                            timer: 3000
+                        });
+                    };
+                });
+            }
+            else {
+                console.log("FAIL REGISTRO");
+                return;
+            }
+        });
+
+        $('#modal-registrar-trabajador')
+            .on('shown.bs.modal', function () {
+                $("#dtpFechaIngreso").val(moment(Date.now()).format("DD/MM/yyyy"));
+                $('#form-registrar-trabajador').find('[name="validateModoIngreso"]').focus();
+            })
+            .on('hidden.bs.modal', function () {
+                $('#form-registrar-trabajador').bootstrapValidator('resetForm', true);
+            });
+
+        $('#modal-info-altas')
+            .on('shown.bs.modal', function () {
+
+                TablaAltas();
+               
+            })
+            .on('hidden.bs.modal', function () {
+                
+            });        
+
+        function poblarEntidadRegistroTrabajador() {
+            return objData = {
+                "ModoIngreso": $("#ddlModoIngreso").val(),
+                "NombreCompleto": $("#txtNombreCompleto").val(),
+                "Dni": $("#txtDni").val(),
+                "Edad": $("#txtEdad").val(),
+                "PuestoTrabajo": $("#txtPuestoTrabajo").val(),
+                "Celular": $("#txtCelular").val(),
+                "TelfReferencia": $("#txtTelfReferencia").val(),
+                "Email": $("#txtEmail").val(),
+                "Direccion": $("#txtDireccion").val(),
+                "EmpresaCodigo": $("#ddlEmpresaCodigo").val(),
+            }
+        }
+
+        function SetModoIngreso(id) {
+
+            if (id == 1) {
+                return "Síntomas";
+            } else if (id == 2) {
+                return "Sospechoso";
+            } else if (id == 3) {
+                return "Contacto";
+            } else if (id == 4) {
+                return "Asintomático";
+            } else if (id == 5) {
+                return "Reingreso";
+            }
+        }
+
+        function TablaAltas() {
+            let codigoEmpresa = $('#ddlEmpresaCodigo').val();
+
+            $.ajax({
+                type: "GET",
+                url: "/Home/getAltas?Codigo=" + parseInt(codigoEmpresa),
+                dataType: 'json',
+                success: function (result) {
+                    $("#table-altas").empty();
+                    console.log("RESULT", result);  
+                    var content = "";
+                    for (var i = 0; i < result.length; i++) {
+                        content += "<tr>";
+                        content += "<td>" + result[i].Trabajador +" días</td>";
+                        content += "<td>" + result[i].NroSeguimientos +" días </td> ";
+                        content += "<td>" + result[i].NroSinSintomas +" días</td> ";
+                        content += "<td>" + result[i].NroConSintomas +" días</td> ";
+                        content += "<td class='cursor-pointer'> Alta</td > ";
+                        content += "</tr> ";
+                    }
+
+                    $("#table-altas").append(content);
+                }
+            });
+        }
+    })
+
+    $(document).on('nifty.ready', function () {
+
+        $('#dtpInicioSintomas').mask('99/99/9999');
+        $('#dtpUltimoDiaTrabajo').mask('99/99/9999');
+
+        $('#input-search').on('input', function (e) {
+            e.preventDefault();
+            table.trigger('footable_filter', { filter: $(this).val() });
+        });
+
+        var table = $("#table-Lista-Trabajadores");
+        table.footable();
+
+        var faIcon = {
+            valid: 'fa fa-check-circle fa-lg text-success',
+            invalid: 'fa fa-times-circle fa-lg',
+            validating: 'fa fa-refresh'
+        }
+
+        $('#form-registrar-trabajador').bootstrapValidator({
+            excluded: ':disabled',
+            feedbackIcons: faIcon,
+            fields: {
+                validateModoIngreso: {
+                    validators: {
+                        notEmpty: {
+                            message: 'El INGRESO POR es requerido'
+                        }
+                    }
+                },
+                validateNombreCompleto: {
+                    validators: {
+                        notEmpty: {
+                            message: 'El NOMBRE COMPLETO es requerido'
+                        },
+                        stringLength: {
+                            min: 10,
+                            max: 100,
+                            message: 'El NOMBRE COMPLETO debe tener entre 10 y 100 caracteres'
+                        },
+                    }
+                },
+                validateDni: {
+                    validators: {
+                        notEmpty: {
+                            message: 'El DNI es requerido'
+                        },
+                        stringLength: {
+                            min: 8,
+                            max: 12,
+                            message: 'El DNI debe tener entre 8 y 12 caracteres'
+                        },
+                    }
+                },
+                validateEdad: {
+                    validators: {
+                        inclusive: true,
+                        notEmpty: {
+                            message: 'La EDAD es requerida'
+                        },
+                        integer: {
+                            message: 'La EDAD no es un número'
+                        },
+                        between: {
+                            min: 18,
+                            max: 100,
+                            message: 'La edad debe estar entre 18 y 100 años'
+                        }
+                    }
+                },
+                validatePuestoTrabajo: {
+                    validators: {
+                        notEmpty: {
+                            message: 'El PUESTO DE TRABAJO es requerido'
+                        },
+                        stringLength: {
+                            min: 4,
+                            max: 200,
+                            message: 'El PUESTO DE TRABAJO debe tener entre 8 y 200 caracteres'
+                        },
+                    }
+                },
+                validateCelular: {
+                    validators: {
+                        notEmpty: {
+                            message: 'El CELULAR es requerido'
+                        },
+                        stringLength: {
+                            min: 8,
+                            max: 20,
+                            message: 'El CELULAR debe tener entre 8 y 20 caracteres'
+                        },
+                    }
+                },
+                validateTelfReferencia: {
+                    validators: {
+                        notEmpty: {
+                            message: 'El TELEF.REFERENCIA es requerido'
+                        },
+                        stringLength: {
+                            min: 8,
+                            max: 20,
+                            message: 'El TELEF.REFERENCIA debe tener entre 8 y 20 caracteres'
+                        },
+                    }
+                },
+                validateEmail: {
+                    validators: {
+                        notEmpty: {
+                            message: 'El EMAIL no es requerido'
+                        },
+                        emailAddress: {
+                            message: 'El EMAIL no es válido'
+                        }
+                    }
+                },
+                validateDireccion: {
+                    validators: {
+                        notEmpty: {
+                            message: 'La DIRECCIÓN es requerido'
+                        },
+                        stringLength: {
+                            min: 8,
+                            max: 200,
+                            message: 'La DIRECCIÓN debe tener entre 8 y 200 caracteres'
+                        },
+                    }
+                }
+            }
+        }).on('success.field.bv', function (e, data) {
+            var $parent = data.element.parents('.form-group');
+
+            // Remove the has-success class
+            $parent.removeClass('has-success');
+        });
+
+        Grafico();
+    })
+
+    function Grafico() {
+        var d1 = [[0, 520], [1, 370], [2, 820], [3, 209], [4, 495], [5, 170], [6, 185], [7, 273]],
+            d2 = [[0, 85], [1, 45], [2, 58], [3, 35], [4, 95], [5, 25], [6, 65], [7, 12]],
+            d3 = [[0, 50], [1, 30], [2, 80], [3, 29], [4, 95], [5, 70], [6, 15], [7, 73]]
+        d4 = [[0, 85], [1, 45], [2, 58], [3, 35], [4, 95], [5, 25], [6, 65], [7, 12]];
+
+        $.plot("#demo-bar-chart", [
+            {
+                label: "Covid +",
+                data: d1
+            }, {
+                label: "No comp.",
+                data: d2
+            }, {
+                label: "Comp.",
+                data: d3
+            }, {
+                label: "Hospi.",
+                data: d4
+            }], {
+            series: {
+                bars: {
+                    show: true,
+                    lineWidth: 0,
+                    barWidth: 0.25,
+                    align: "center",
+                    order: 1,
+                    fillColor: { colors: [{ opacity: .9 }, { opacity: .9 }] }
+                }
+            },
+            colors: ['#03a9f4', '#ffb300', '#e3e8ee', '#8bc34a'],
+            grid: {
+                borderWidth: 0,
+                hoverable: true,
+                clickable: true
+            },
+            yaxis: {
+                ticks: 4, tickColor: 'rgba(0,0,0,.02)'
+            },
+            xaxis: {
+                ticks: 7,
+                tickColor: 'transparent'
+            },
+            tooltip: {
+                show: true,
+                content: "<div class='flot-tooltip text-center'><h5 class='text-main'>%s</h5>%y.0 </div>"
+            }
+        });
+    }
+
+</script>
