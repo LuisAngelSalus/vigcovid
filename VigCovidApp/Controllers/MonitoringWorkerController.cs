@@ -225,6 +225,14 @@ namespace VigCovidApp.Controllers
                     oSeguimiento.PulmonarCronica = seguimiento.PulmonarCronica == true ? "checked" : "";
                     oSeguimiento.TratInmunosupresor = seguimiento.TratInmunosupresor == true ? "checked" : "";
 
+                    oSeguimiento.CasoPositivo = seguimiento.CasoPositivo == true ? "checked" : "";
+                    oSeguimiento.CasoSospechoso = seguimiento.CasoSospechoso == true ? "checked" : "";
+                    oSeguimiento.RinofaringitisAguda = seguimiento.RinofaringitisAguda == true ? "checked" : "";
+                    oSeguimiento.NeumoniaViral = seguimiento.NeumoniaViral == true ? "checked" : "";
+                    oSeguimiento.ContactoEnfermedades = seguimiento.ContactoEnfermedades == true ? "checked" : "";
+                    oSeguimiento.Aislamiento = seguimiento.Aislamiento == true ? "checked" : "";
+                    oSeguimiento.Otros = seguimiento.Otros == true ? "checked" : "";
+
                     listaSeguimientos.Add(oSeguimiento);
                 }
 

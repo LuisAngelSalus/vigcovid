@@ -111,7 +111,7 @@
                         <p class="text-bold"><a href="#" class="text-warning">Síntomas</a></p>
                         <hr class="new-section-xs">
 
-                        <div id="panel-checkbox-sintomas-@seguimiento.SeguimientoId">
+                        <div id="panel-checkbox-sintomas-@seguimiento.SeguimientoId" class="panel-sintomas">
                             <div class="row">
                                 <div class="col-md-4">
                                     <input id="chk-SensacionFiebre-@seguimiento.SeguimientoId" class="magic-checkbox" type="checkbox" @seguimiento.SensacionFiebre>
@@ -159,7 +159,7 @@
                         <div class="timeline-label">
                             <p class="text-bold"><a href="#" class="text-warning">Factores de riesgo</a></p>
                             <hr class="new-section-xs">
-                            <div  id="panel-checkbox-aditional-@seguimiento.SeguimientoId">
+                            <div  id="panel-checkbox-aditional-@seguimiento.SeguimientoId" class="panel-sintomas">
                                 <div class="row">
                                     <div class="col-md-4">
                                         <input id="chk-HipertensionArterial-@seguimiento.SeguimientoId" class="magic-checkbox" type="checkbox" @seguimiento.HipertensionArterial>
@@ -221,7 +221,7 @@
                             <p class="text-bold"><a href="#" class="text-warning">Diagnósticos</a></p>
                             <hr class="new-section-xs">
                             <div class="row">
-                                <div id="panel-checkbox-Dx-@seguimiento.SeguimientoId">
+                                <div id="panel-checkbox-Dx-@seguimiento.SeguimientoId" class="panel-sintomas">
                                     <div class="row col-12">
                                         <div class="col-md-6">
                                             <input id="chk-CasoPositivo-@seguimiento.SeguimientoId" class="magic-checkbox" type="checkbox" @seguimiento.CasoPositivo>
@@ -375,7 +375,7 @@
 
         });
 
-        $(".panel-body").on("click", ".checkbox-inline input", function (e) {
+        $(".panel-body").on("click", ".panel-sintomas input", function (e) {
             let checkId = $(e.target).attr("id");
             let id = checkId.split('-')[2];
             var labelText = $('label[for=' + checkId + ']').text();
@@ -430,11 +430,15 @@
                         }
                     },
                     callback: function (result) {
-                        //Actualizar seguimiento
-                        let id = ddlCalificacionId.split('-')[2];
-                        SaveChange(id);   
-                        //Actualizar Estado Clinico de trabajador
-                        UpdateEstadoClinico();
+                        if (result) {
+                            //Actualizar seguimiento
+                            let id = ddlCalificacionId.split('-')[2];
+                            SaveChange(id);
+                            //Actualizar Estado Clinico de trabajador
+                            UpdateEstadoClinico();
+                            //GENERAR FICHA ALTA...
+                        }
+                   
                     }
                 });
             } else {
