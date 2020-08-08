@@ -1,11 +1,16 @@
-﻿using System;
+﻿using iTextSharp.text;
+using iTextSharp.text.pdf;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.UI;
 using VigCovidApp.Controllers.Base;
 using VigCovidApp.Models;
+using VigCovidApp.Utils.Export;
 using VigCovidApp.ViewModels;
 using static VigCovidApp.Models.Enums;
 
@@ -14,7 +19,7 @@ namespace VigCovidApp.Controllers
     public class MonitoringWorkerController : GenericController
     {
         private ApplicationDbContext db = new ApplicationDbContext();
-        
+
         public ActionResult RegisterMonitoring(int id)
         {
             //ViewBag.COMBOCALIFICACION = ComboCalificacion();
@@ -23,8 +28,8 @@ namespace VigCovidApp.Controllers
             ViewBag.INDICADORES = GetIndicadores(id);
 
             var seguimientos = Seguimientos(id);
-            if(seguimientos.Count() == 0) return View(new List<SeguimientosViewModel>());
-            
+            if (seguimientos.Count() == 0) return View(new List<SeguimientosViewModel>());
+
             return View(seguimientos);
         }
 
@@ -155,7 +160,7 @@ namespace VigCovidApp.Controllers
         public JsonResult UpdateEstadoClinico(EstadoClinico oEstadoClinico)
         {
             try
-            {             
+            {
                 var result = db.RegistroTrabajador.SingleOrDefault(b => b.Id == oEstadoClinico.TrabajadorId);
                 if (result != null)
                 {
@@ -242,12 +247,13 @@ namespace VigCovidApp.Controllers
             {
                 throw;
             }
-            
+
         }
-        private int GetNroMonitoring(int registroTrabajadorId) {
+        private int GetNroMonitoring(int registroTrabajadorId)
+        {
 
             var seguimientos = db.Seguimiento.Where(w => w.RegistroTrabajadorId == registroTrabajadorId).OrderByDescending(o => o.NroSeguimiento).ToList();
-            if (seguimientos.Count == 0)            
+            if (seguimientos.Count == 0)
                 return 0;
 
             return seguimientos[0].NroSeguimiento;
@@ -293,7 +299,7 @@ namespace VigCovidApp.Controllers
                 result.NroDiasPrueba = "";
                 result.ResultadoPrueba = "";
             }
-            
+
             return result;
         }
         private IndicadorCovid19 GetDiasPrueba(List<Seguimiento> seguimientos)
@@ -308,7 +314,7 @@ namespace VigCovidApp.Controllers
             {
                 if (!(item.FechaResultadoCovid19 == null || item.FechaResultadoCovid19 < DateTime.Now.AddYears(-5))
                 && (!(item.ResultadoCovid19 == null || item.ResultadoCovid19 == -1)))
-                {                    
+                {
                     resultado = GetResultadoCovid19(item.ResultadoCovid19.Value);
                     break;
                 }
@@ -316,7 +322,7 @@ namespace VigCovidApp.Controllers
                 {
                     count++;
                 }
-                
+
             }
             oIndicadorCovid19.Contador = count;
             oIndicadorCovid19.Resultado = resultado;
@@ -336,7 +342,7 @@ namespace VigCovidApp.Controllers
                     && item.Cefalea == false
                     && item.DolorMuscular == false
                     && item.PerdidaOlfato == false)
-                {   
+                {
                     count++;
                 }
                 else
@@ -372,11 +378,11 @@ namespace VigCovidApp.Controllers
         }
         private string GetEmpresa(int id)
         {
-            if (id==1)
+            if (id == 1)
             {
                 return "SALUS LABORIS";
             }
-            else if (id== 2)
+            else if (id == 2)
             {
                 return "BACKUS";
             }
@@ -439,9 +445,47 @@ namespace VigCovidApp.Controllers
 
         public class EstadoClinico
         {
-            public int TrabajadorId { get; set; }            
+            public int TrabajadorId { get; set; }
         }
 
         #endregion
+
+        public FileResult ExportAltaMedica()
+        {
+            MemoryStream memoryStream = GetPdfAltaMedica();
+
+            string fileName = string.Empty;
+            DateTime fileCreationDatetime = DateTime.Now;
+
+            return File(memoryStream, "application/pdf", fileName);
+        }
+
+        private MemoryStream GetPdfAltaMedica()
+        {
+            MemoryStream memoryStream = new MemoryStream();
+            using (Document document = new Document(PageSize.A4, 40, 40, 140, 40))
+            {
+                try
+                {
+                    PdfWriter pdfWriter = PdfWriter.GetInstance(document, memoryStream);
+                    pdfWriter.CloseStream = false;
+                    pdfWriter.PageEvent = new ITextEvents();
+
+                    document.Open();
+
+                    document.Close();
+
+                    byte[] byteInfo = memoryStream.ToArray();
+                    memoryStream.Write(byteInfo, 0, byteInfo.Length);
+                    memoryStream.Position = 0;
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
+            }
+            return memoryStream;
+        }
+
     }
 }
