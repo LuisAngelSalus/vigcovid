@@ -308,8 +308,12 @@ namespace VigCovidApp.Controllers
 
         private string CalcularDiasSeguimiento(List<Seguimiento> seguimientos)
         {
-            var primerSeguimiento = seguimientos.Find(p => p.NroSeguimiento == 1).Fecha.ToString("dd/MM/yyyy");
-            return "0";  
+            var primerSeguimiento = seguimientos.Find(p => p.NroSeguimiento == 1).Fecha;
+
+            var dias = (DateTime.Now - primerSeguimiento).TotalDays;
+            var rDias = Decimal.Parse(dias.ToString());
+            
+            return Decimal.Round(rDias).ToString();  
         }
 
         private IndicadorCovid19 GetDiasPrueba(List<Seguimiento> seguimientos)
