@@ -140,6 +140,7 @@
     <Compile Include="Controllers\AccessSystemController.cs" />
     <Compile Include="Controllers\Base\ErrorController.cs" />
     <Compile Include="Controllers\Base\GenericController.cs" />
+    <Compile Include="Controllers\ExamenController.cs" />
     <Compile Include="Controllers\GeneralsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MonitoringWorkerController.cs" />
@@ -148,6 +149,7 @@
     </Compile>
     <Compile Include="Models\Empresas.cs" />
     <Compile Include="Models\Enums.cs" />
+    <Compile Include="Models\Examen.cs" />
     <Compile Include="Models\Seguimiento.cs" />
     <Compile Include="Models\SessionModel.cs" />
     <Compile Include="Models\Usuarios.cs" />
@@ -158,8 +160,10 @@
     <Compile Include="Utils\Export\ITextEvents.cs" />
     <Compile Include="ViewModels\ActualizarSeguimientoViewModel.cs" />
     <Compile Include="ViewModels\IndicadoresViewModel.cs" />
+    <Compile Include="ViewModels\ListarExamenesViewModel.cs" />
     <Compile Include="ViewModels\ListaTrabajadoresViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
+    <Compile Include="ViewModels\RegistrarExamen.cs" />
     <Compile Include="ViewModels\SeguimientosViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -199,13 +203,8 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Content\fonts\nifty-demo-icons.ttf" />
     <Content Include="Content\fonts\nifty-demo-icons.woff" />
-    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\bootstrapValidator.min.js" />
-    <Content Include="Scripts\Export\Excel\jquery-unified-export-file-1.0.js" />
-    <Content Include="Scripts\Export\PDF\FileSaver.js" />
-    <Content Include="Scripts\Export\PDF\jspdf.js" />
-    <Content Include="Scripts\Export\PDF\jspdf.plugin.standard_fonts_metrics.js" />
     <Content Include="Scripts\footable.all.min.js" />
     <Content Include="Scripts\icons.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
@@ -252,8 +251,12 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Properties\PublishProfiles\" />
+    <Folder Include="Scripts\Export\Excel\" />
+    <Folder Include="Scripts\Export\PDF\" />
     <Folder Include="Utils\Export\Pdf\" />
     <Folder Include="Views\Error\" />
+    <Folder Include="Views\Examen\" />
     <Folder Include="Views\Generic\" />
   </ItemGroup>
   <ItemGroup>

@@ -265,7 +265,8 @@
 </div>
 <!--===================================================-->
 <!--End page content-->
-<!--Default Bootstrap Modal-->
+
+<!--Modal Registro de trabajador-->
 <!--===================================================-->
 <div class="modal fade"
      id="modal-registrar-trabajador"
@@ -400,7 +401,7 @@
                         <div class="panel-footer text-right">
                             <button class="btn btn-success" id="btnRegistrarTrabajador" type="submit">Registrar</button>
                         </div>
-</form>
+                </form>
                 <!--===================================================-->
                 <!--End Block Styled Form -->
             </div>
@@ -413,9 +414,7 @@
 <!--End page content-->
 
 
-
-
-<!--Default Bootstrap Modal-->
+<!--Modal info altas-->
 <!--===================================================-->
 <div class="modal fade"
      id="modal-info-altas"
@@ -556,15 +555,12 @@
                 bootbox.confirm("¿Está seguro de registrar trabajador?", function (result) {
 
                     var datos = poblarEntidadRegistroTrabajador();
-
                     if (result) {
-                        $('.modal').modal('show');
                         $.ajax({
                             type: "POST",
                             url: "/Home/RegistrarTrabajador",
                             data: datos,
                             success: function (data) {
-                                $('.modal').modal('hide');
                                 window.location = "/Home/Index"
                             },
                             error: function (jqXHR, exception) {

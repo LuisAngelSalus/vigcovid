@@ -21,9 +21,7 @@ namespace VigCovidApp.Models
         public bool? Cefalea { get; set; }
         public bool? DolorMuscular { get; set; }
         public bool? PerdidaOlfato { get; set; }
-        public string Comentario { get; set; }
-        public int? ResultadoCovid19 { get; set; }
-        public DateTime? FechaResultadoCovid19 { get; set; }
+        public string Comentario { get; set; }        
         public int? TipoEstadoId { get; set; }
         public RegistroTrabajador RegistroTrabajador { get; set; }
         public int NroSeguimiento { get; set; }
@@ -46,6 +44,7 @@ namespace VigCovidApp.Models
         public bool? ContactoEnfermedades { get; set; }
         public bool? Aislamiento { get; set; }
         public bool? Otros { get; set; }
+        public string OtrosComentar { get; set; }
 
     }
 }

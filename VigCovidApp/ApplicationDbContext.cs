@@ -15,6 +15,7 @@ namespace VigCovidApp
 
         public virtual DbSet<RegistroTrabajador> RegistroTrabajador { get; set; }
         public virtual DbSet<Seguimiento> Seguimiento { get; set; }
+        public virtual DbSet<Examen> Examen { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

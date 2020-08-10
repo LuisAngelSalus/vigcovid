@@ -358,20 +358,20 @@ namespace VigCovidApp.Controllers
                          where A.EmpresaCodigo == Codigo && B.TipoEstadoId == (int)TipoEstado.AltaEpidemiologica
                          select B ).ToList();
 
-            var igms = (from A in db.RegistroTrabajador
-                         join B in db.Seguimiento on A.Id equals B.RegistroTrabajadorId
-                         where A.EmpresaCodigo == Codigo && B.ResultadoCovid19 == (int)ResultadoCovid19.IgMPositivo
-                         select B).ToList();
+            //var igms = (from A in db.RegistroTrabajador
+            //             join B in db.Seguimiento on A.Id equals B.RegistroTrabajadorId
+            //             where A.EmpresaCodigo == Codigo && B.ResultadoCovid19 == (int)ResultadoCovid19.IgMPositivo
+            //             select B).ToList();
 
-            var iggs = (from A in db.RegistroTrabajador
-                        join B in db.Seguimiento on A.Id equals B.RegistroTrabajadorId
-                        where A.EmpresaCodigo == Codigo && B.ResultadoCovid19 == (int)ResultadoCovid19.IgGPositivo
-                        select B).ToList();
+            //var iggs = (from A in db.RegistroTrabajador
+            //            join B in db.Seguimiento on A.Id equals B.RegistroTrabajadorId
+            //            where A.EmpresaCodigo == Codigo && B.ResultadoCovid19 == (int)ResultadoCovid19.IgGPositivo
+            //            select B).ToList();
 
-            var igmiggs = (from A in db.RegistroTrabajador
-                        join B in db.Seguimiento on A.Id equals B.RegistroTrabajadorId
-                        where A.EmpresaCodigo == Codigo && B.ResultadoCovid19 == (int)ResultadoCovid19.IgMeIgGpositivo
-                        select B).ToList();
+            //var igmiggs = (from A in db.RegistroTrabajador
+            //            join B in db.Seguimiento on A.Id equals B.RegistroTrabajadorId
+            //            where A.EmpresaCodigo == Codigo && B.ResultadoCovid19 == (int)ResultadoCovid19.IgMeIgGpositivo
+            //            select B).ToList();
 
             var altasHoy = altas.Count(p => p.Fecha == fechaActual);
             var altasTotal = altas.Count;
@@ -379,9 +379,9 @@ namespace VigCovidApp.Controllers
             oIndicadores.altasHoy = altasHoy.ToString();
             oIndicadores.altasTotal = altasTotal.ToString();
 
-            oIndicadores.TotalIgM = igms.Count().ToString();
-            oIndicadores.TotalIgG = iggs.Count().ToString();
-            oIndicadores.TotalIgMeIgG = igmiggs.Count().ToString();
+            //oIndicadores.TotalIgM = igms.Count().ToString();
+            //oIndicadores.TotalIgG = iggs.Count().ToString();
+            //oIndicadores.TotalIgMeIgG = igmiggs.Count().ToString();
 
             return Json(oIndicadores, JsonRequestBehavior.AllowGet);
 

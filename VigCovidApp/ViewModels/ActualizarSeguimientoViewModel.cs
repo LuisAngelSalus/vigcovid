@@ -42,6 +42,6 @@ namespace VigCovidApp.ViewModels
         public bool? ContactoEnfermedades { get; set; }
         public bool? Aislamiento { get; set; }
         public bool? Otros { get; set; }
-        public bool? OtrosComentar { get; set; }
+        public string OtrosComentar { get; set; }
     }
 }

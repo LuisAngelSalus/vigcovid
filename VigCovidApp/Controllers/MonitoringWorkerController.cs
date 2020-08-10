@@ -27,6 +27,8 @@ namespace VigCovidApp.Controllers
 
             ViewBag.INDICADORES = GetIndicadores(id);
 
+            ViewBag.EXAMENES = ListarExamenesTrabajador(id);
+
             var seguimientos = Seguimientos(id);
             if (seguimientos.Count() == 0) return View(new List<SeguimientosViewModel>());
 
@@ -63,7 +65,7 @@ namespace VigCovidApp.Controllers
                 oSeguimiento.PerdidaOlfato = false;
 
                 oSeguimiento.Comentario = "";
-                oSeguimiento.ResultadoCovid19 = 1;
+                //oSeguimiento.ResultadoCovid19 = 1;
                 oSeguimiento.TipoEstadoId = -1;
                 oSeguimiento.NroSeguimiento = nroSeguimientoSiguiente;
                 db.Seguimiento.Add(oSeguimiento);
@@ -116,10 +118,11 @@ namespace VigCovidApp.Controllers
                     result.ContactoEnfermedades = entidad.ContactoEnfermedades;
                     result.Aislamiento = entidad.Aislamiento;
                     result.Otros = entidad.Otros;
+                    result.OtrosComentar = entidad.OtrosComentar;
 
                     result.Comentario = entidad.Comentario;
-                    result.ResultadoCovid19 = entidad.ResultadoCovid19;
-                    result.FechaResultadoCovid19 = entidad.FechaResultadoCovid19;
+                    //result.ResultadoCovid19 = entidad.ResultadoCovid19;
+                    //result.FechaResultadoCovid19 = entidad.FechaResultadoCovid19;
                     result.TipoEstadoId = entidad.TipoEstadoId;
                     db.SaveChanges();
                 }
@@ -213,8 +216,8 @@ namespace VigCovidApp.Controllers
                     oSeguimiento.PerdidaOlfato = seguimiento.PerdidaOlfato == true ? "checked" : "";
 
                     oSeguimiento.Comentario = seguimiento.Comentario;
-                    oSeguimiento.ResultadoCovid19 = seguimiento.ResultadoCovid19.Value;
-                    oSeguimiento.FechaResultadoCovid19 = seguimiento.FechaResultadoCovid19 < DateTime.Now.AddYears(-5) ? null : seguimiento.FechaResultadoCovid19;
+                    //oSeguimiento.ResultadoCovid19 = seguimiento.ResultadoCovid19.Value;
+                    //oSeguimiento.FechaResultadoCovid19 = seguimiento.FechaResultadoCovid19 < DateTime.Now.AddYears(-5) ? null : seguimiento.FechaResultadoCovid19;
                     oSeguimiento.TipoEstadoId = seguimiento.TipoEstadoId.Value;
                     oSeguimiento.NroSeguimiento = seguimiento.NroSeguimiento;
                     //-----------------------------------------------------
@@ -237,7 +240,7 @@ namespace VigCovidApp.Controllers
                     oSeguimiento.ContactoEnfermedades = seguimiento.ContactoEnfermedades == true ? "checked" : "";
                     oSeguimiento.Aislamiento = seguimiento.Aislamiento == true ? "checked" : "";
                     oSeguimiento.Otros = seguimiento.Otros == true ? "checked" : "";
-
+                    oSeguimiento.OtrosComentar = seguimiento.OtrosComentar;
                     listaSeguimientos.Add(oSeguimiento);
                 }
 
@@ -284,7 +287,7 @@ namespace VigCovidApp.Controllers
             if (seguimientos.Count > 0)
             {
                 result.FechaRegistro = seguimientos.Find(p => p.NroSeguimiento == 1).Fecha.ToString("dd/MM/yyyy");
-                result.DiasEnSeguimiento = seguimientos.Count().ToString();
+                result.DiasEnSeguimiento = CalcularDiasSeguimiento(seguimientos); //(seguimientos.Count().ToString();
                 result.FechaInicioSintomas = GetFechaInicioSintomas(seguimientos);
                 result.NroDiasSinSintomas = (GetNroDiasSinSintomas(seguimientos)).ToString();
                 result.NroDiasPrueba = GetDiasPrueba(seguimientos).Contador.ToString();
@@ -302,6 +305,13 @@ namespace VigCovidApp.Controllers
 
             return result;
         }
+
+        private string CalcularDiasSeguimiento(List<Seguimiento> seguimientos)
+        {
+            var primerSeguimiento = seguimientos.Find(p => p.NroSeguimiento == 1).Fecha.ToString("dd/MM/yyyy");
+            return "0";  
+        }
+
         private IndicadorCovid19 GetDiasPrueba(List<Seguimiento> seguimientos)
         {
             var oIndicadorCovid19 = new IndicadorCovid19();
@@ -312,16 +322,16 @@ namespace VigCovidApp.Controllers
 
             foreach (var item in sortSeguimientos)
             {
-                if (!(item.FechaResultadoCovid19 == null || item.FechaResultadoCovid19 < DateTime.Now.AddYears(-5))
-                && (!(item.ResultadoCovid19 == null || item.ResultadoCovid19 == -1)))
-                {
-                    resultado = GetResultadoCovid19(item.ResultadoCovid19.Value);
-                    break;
-                }
-                else
-                {
-                    count++;
-                }
+                //if (!(item.FechaResultadoCovid19 == null || item.FechaResultadoCovid19 < DateTime.Now.AddYears(-5))
+                //&& (!(item.ResultadoCovid19 == null || item.ResultadoCovid19 == -1)))
+                //{
+                //    resultado = GetResultadoCovid19(item.ResultadoCovid19.Value);
+                //    break;
+                //}
+                //else
+                //{
+                //    count++;
+                //}
 
             }
             oIndicadorCovid19.Contador = count;
@@ -420,6 +430,52 @@ namespace VigCovidApp.Controllers
             else if (id == (int)ResultadoCovid19.Noserealizo)
             {
                 return "No se realizó";
+            }
+            else
+            {
+                return "";
+            }
+        }
+        private List<ListarExamenesViewModel> ListarExamenesTrabajador(int trabajadorId)
+        {
+            var query = (from A in db.Examen where A.TrabajadorId == trabajadorId select A).ToList();
+
+            var examenes = new List<ListarExamenesViewModel>();
+            foreach (var item in query)
+            {
+                var examen = new ListarExamenesViewModel();
+                examen.IdExamen = item.Id;
+                examen.IdTrabajador = item.TrabajadorId;
+                examen.FechaExamen = item.Fecha;
+                examen.TipoPrueba = item.TipoPrueba == 0 ? "Prueba rápida" : "Molecular";
+                examen.Resultado = ObtenerResultado(item.Resultado);
+
+                examenes.Add(examen);
+            }
+
+            return examenes;
+        }
+        private string ObtenerResultado(int resultado)
+        {
+            if (resultado == 0)
+            {
+                return "Negativo";
+            }
+            else if (resultado == 1)
+            {
+                return "No válido";
+            }
+            else if (resultado == 2)
+            {
+                return "IgM Positivo";
+            }
+            else if (resultado == 3)
+            {
+                return "IgG Positivo";
+            }
+            else if (resultado == 4)
+            {
+                return "IgM e IgG Positivo";
             }
             else
             {

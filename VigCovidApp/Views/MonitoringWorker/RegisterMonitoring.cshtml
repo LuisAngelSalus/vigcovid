@@ -2,95 +2,143 @@
 
 @{
     ViewBag.Title = "Seguimiento Trabajador";
-    var disabledChecks = "disabledbutton";
 }
-    <style>
-        .disabledbutton {
-            pointer-events: none;
-            opacity: 0.4;
-        }
+<style>
+    .disabledbutton {
+        pointer-events: none;
+        opacity: 0.4;
+    }
 
-        .cart-no {
-            position: absolute;
-            height:25px;
-            width: 25px;
-            border-radius:50%;
-            font-weight:600;
-            font-size:1em;
-/*            background:blue;*/
-            color:blue;
-            text-align:center;
-            top:-4px;
-            right:8px;
-        }
-               
-    }   
-    </style>
+    .cart-no {
+        position: absolute;
+        height: 25px;
+        width: 25px;
+        border-radius: 50%;
+        font-weight: 600;
+        font-size: 1em;
+        /*            background:blue;*/
+        color: blue;
+        text-align: center;
+        top: -4px;
+        right: 8px;
+    }
+    }
+</style>
 
 <div class="row">
     <div class="col-lg-6 col-lg-offset-3">
-        <div class="panel">            
-            <!--Profile Widget-->
-            <!--===================================================-->
-            <div class="panel widget">                
+        <div class="panel">
+            <div class="panel widget" style="margin-bottom:0px; ">
                 <button id="btn-Regresar-Index" class="btn btn-info" style="position:absolute; z-index:1000"><i class="demo-pli-back"></i> IR A BANDEJA</button>
                 <div class="widget-header bg-warning text-center">
                     <h4 class="text-light mar-no pad-top">@ViewBag.INDICADORES.Trabajador</h4>
                     <p class="mar-btm">@ViewBag.INDICADORES.Empresa</p>
                     <p class="mar-btm">@ViewBag.INDICADORES.Email - @ViewBag.INDICADORES.Celular</p>
                 </div>
-                <div class="widget-body">
+                <div class="widget-body" style="margin-bottom:0px;">
                     <img alt="Profile Picture" class="widget-img img-circle img-border-light" src="~/Assets/profile-photos/1.png">
 
-                    <div class="list-group bg-trans mar-no">
-                        <div class="col-sm-4">
-                            <a class="list-group-item list-item-sm" href="#">
-                                <span class="label label-primary pull-right">@ViewBag.INDICADORES.FechaRegistro</span>
-                                Fecha Inicio:
-                            </a>
+                    <div class="panel-group accordion" id="demo-acc-info-outline" style="margin-bottom:0px;">
+                        <div class="panel panel-bordered panel-info">
+                            <!--Accordion title-->
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a data-parent="#demo-acc-info-outline" data-toggle="collapse" href="#demo-acd-info-outline-3" class="collapsed" aria-expanded="true">Línea de tiempo</a>
+                                </h4>
+                            </div>
+                            <!--Accordion content-->
+                            <div class="panel-collapse collapse" id="demo-acd-info-outline-3" aria-expanded="true">
+                                <div class="panel-body">
+                                    <div class="panel panel-colorful panel-primary" style="margin-bottom:0px;">
+                                        <div class="panel-body">
+                                            <p>Lorem ipsum dolor sit amet.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="col-sm-4">
-                            <a class="list-group-item list-item-sm" href="#">
-                                <span class="label label-success pull-right">@ViewBag.INDICADORES.DiasEnSeguimiento</span>
-                                Días en seguimiento:
-                            </a>
-                        </div>
-                        <div class="col-sm-4">
+                        <div class="panel panel-bordered panel-info">
+                            <!--Accordion title-->
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a data-parent="#demo-acc-info-outline" data-toggle="collapse" href="#demo-acd-info-outline-2" class="collapsed" aria-expanded="false">Indicadores</a>
+                                </h4>
+                            </div>
+                            <!--Accordion content-->
+                            <div class="panel-collapse collapse" id="demo-acd-info-outline-2" aria-expanded="false">
+                                <div class="panel-body">
+                                    <div class="list-group bg-trans mar-no">
+                                        <div class="col-sm-4">
+                                            <a class="list-group-item list-item-sm" href="#">
+                                                <span class="label label-primary pull-right">@ViewBag.INDICADORES.FechaRegistro</span>
+                                                Fecha Inicio:
+                                            </a>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <a class="list-group-item list-item-sm" href="#">
+                                                <span class="label label-success pull-right">@ViewBag.INDICADORES.DiasEnSeguimiento</span>
+                                                Días en seguimiento:
+                                            </a>
+                                        </div>
+                                        <div class="col-sm-4">
 
-                            <a class="list-group-item list-item-sm" href="#">
-                                <span class="label label-danger pull-right">@ViewBag.INDICADORES.FechaInicioSintomas</span>
-                                Fecha inicio síntomas:
-                            </a>
+                                            <a class="list-group-item list-item-sm" href="#">
+                                                <span class="label label-danger pull-right">@ViewBag.INDICADORES.FechaInicioSintomas</span>
+                                                Fecha inicio síntomas:
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="list-group bg-trans mar-no">
-                        <div class="col-sm-4">
-                            <a class="list-group-item list-item-sm" href="#">
-                                <span class="label label-primary pull-right">@ViewBag.INDICADORES.NroDiasSinSintomas</span>
-                                Nro. días sin síntomas:
-                            </a>
-                        </div>
-                        <div class="col-sm-4">
-                            <a class="list-group-item list-item-sm" href="#">
-                                <span class="label label-success pull-right">@ViewBag.INDICADORES.NroDiasPrueba</span>
-                                Nro. días desde prueba rápida:
-                            </a>
-                        </div>
-                        <div class="col-sm-4">
-
-                            <a class="list-group-item list-item-sm" href="#">
-                                <span class="label label-danger pull-right">@ViewBag.INDICADORES.ResultadoPrueba</span>
-                                Resultado
-                            </a>
+                        <div class="panel panel-bordered panel-info">
+                            <!--Accordion title-->
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a data-parent="#demo-acc-info-outline" data-toggle="collapse" href="#demo-acd-info-outline-1" aria-expanded="false" class="">Exámenes</a>
+                                </h4>
+                            </div>
+                            <!--Accordion content-->
+                            <div class="panel-collapse collapse in" id="demo-acd-info-outline-1" aria-expanded="false" style="">
+                                <div class="panel-body">
+                                    <div class="list-group bg-trans">
+                                        <div class="pad-btm form-inline">
+                                            <div class="row">
+                                                <div class="col-sm-6 table-toolbar-left">
+                                                    <button id="btnModalNuevoExamen" data-toggle="modal" data-target="#modal-examen" class="btn btn-purple"><i class="demo-pli-add"></i> Agregar examen</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <table class="table table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>Fecha</th>
+                                                    <th>Tipo Examen</th>
+                                                    <th>Resultado</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="tabla-examenes">
+                                                @foreach (var item in @ViewBag.EXAMENES)
+                                                {
+                                                    <tr>
+                                                        <td><a href='#fakelink' class='btn-link'>@item.FechaExamen.ToString("dd/MM/yyyy")</a></td>
+                                                        <td>@item.TipoPrueba</td>
+                                                        <td>@item.Resultado</td>
+                                                    </tr>
+                                                }
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <!--===================================================-->
             <div class="panel-body">
                 <hr class="new-section-xs">
                 <!-- Timeline header -->
-                <div class="text-right">                    
+                <div class="text-right">
                     <button id="btn-AgregarSeguimiento" class="btn btn-primary">Agregar Seguimiento</button>
                 </div>
                 <input type="hidden" id="txtRegistroTrabajadoId" value="@ViewBag.REGISTROTRABAJADOR" />
@@ -98,172 +146,182 @@
                 <!--===================================================-->
                 @foreach (var seguimiento in Model)
                 {
-            <div class="timeline">
-                <div class="timeline-entry">
-                    <div class="timeline-stat">
-                        <div class="timeline-icon pos-rel">
-                            <i class="demo-pli-home icon-3x"></i>
-                            <div class="cart-no">@seguimiento.NroSeguimiento</div>
-                        </div>
-                        <div class="timeline-time cursor-pointer" onclick="CambiarFecha(@seguimiento.SeguimientoId, @seguimiento.RegistroTrabajadorId)">@seguimiento.Fecha</div>
-                    </div>
-                    <div class="timeline-label">
-                        <p class="text-bold"><a href="#" class="text-warning">Síntomas</a></p>
-                        <hr class="new-section-xs">
-
-                        <div id="panel-checkbox-sintomas-@seguimiento.SeguimientoId" class="panel-sintomas">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <input id="chk-SensacionFiebre-@seguimiento.SeguimientoId" class="magic-checkbox" type="checkbox" @seguimiento.SensacionFiebre>
-                                    <label for="chk-SensacionFiebre-@seguimiento.SeguimientoId">Sensación de fiebre</label>
+                    <div class="timeline">
+                        <div class="timeline-entry">
+                            <div class="timeline-stat">
+                                <div class="timeline-icon pos-rel">
+                                    <i class="demo-pli-home icon-3x"></i>
+                                    <div class="cart-no">@seguimiento.NroSeguimiento</div>
                                 </div>
-                                <div class="col-md-4">
-                                    <input id="chk-Tos-@seguimiento.SeguimientoId" class="magic-checkbox" type="checkbox" @seguimiento.Tos>
-                                    <label for="chk-Tos-@seguimiento.SeguimientoId">Tos</label>
-                                </div>
-                                <div class="col-md-4">
-                                    <input id="chk-DolorGarganta-@seguimiento.SeguimientoId" class="magic-checkbox" type="checkbox" @seguimiento.DolorGarganta>
-                                    <label for="chk-DolorGarganta-@seguimiento.SeguimientoId">Dolor de garganta</label>
-                                </div>
-
+                                <div class="timeline-time cursor-pointer" onclick="CambiarFecha(@seguimiento.SeguimientoId, @seguimiento.RegistroTrabajadorId)">@seguimiento.Fecha</div>
                             </div>
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <input id="chk-DificultadRespiratoria-@seguimiento.SeguimientoId" class="magic-checkbox" type="checkbox" @seguimiento.DificultadRespiratoria>
-                                    <label for="chk-DificultadRespiratoria-@seguimiento.SeguimientoId">Dificultad respiratoria</label>
-                                </div>
-                                <div class="col-md-4">
-                                    <input id="chk-CongestionNasal-@seguimiento.SeguimientoId" class="magic-checkbox" type="checkbox" @seguimiento.CongestionNasal>
-                                    <label for="chk-CongestionNasal-@seguimiento.SeguimientoId">Congestion Nasal</label>
-                                </div>
-                                <div class="col-md-4">
-                                    <input id="chk-Cefalea-@seguimiento.SeguimientoId" class="magic-checkbox" type="checkbox" @seguimiento.Cefalea>
-                                    <label for="chk-Cefalea-@seguimiento.SeguimientoId">Cefaléa</label>
+                            <div class="timeline-label">
+                                <p class="text-bold"><a href="#" class="text-warning">Síntomas</a></p>
+                                <hr class="new-section-xs">
+
+                                <div id="panel-checkbox-sintomas-@seguimiento.SeguimientoId" class="panel-sintomas">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <input id="chk-SensacionFiebre-@seguimiento.SeguimientoId" class="magic-checkbox" type="checkbox" @seguimiento.SensacionFiebre>
+                                            <label for="chk-SensacionFiebre-@seguimiento.SeguimientoId">Sensación de fiebre</label>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <input id="chk-Tos-@seguimiento.SeguimientoId" class="magic-checkbox" type="checkbox" @seguimiento.Tos>
+                                            <label for="chk-Tos-@seguimiento.SeguimientoId">Tos</label>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <input id="chk-DolorGarganta-@seguimiento.SeguimientoId" class="magic-checkbox" type="checkbox" @seguimiento.DolorGarganta>
+                                            <label for="chk-DolorGarganta-@seguimiento.SeguimientoId">Dolor de garganta</label>
+                                        </div>
+
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <input id="chk-DificultadRespiratoria-@seguimiento.SeguimientoId" class="magic-checkbox" type="checkbox" @seguimiento.DificultadRespiratoria>
+                                            <label for="chk-DificultadRespiratoria-@seguimiento.SeguimientoId">Dificultad respiratoria</label>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <input id="chk-CongestionNasal-@seguimiento.SeguimientoId" class="magic-checkbox" type="checkbox" @seguimiento.CongestionNasal>
+                                            <label for="chk-CongestionNasal-@seguimiento.SeguimientoId">Congestion Nasal</label>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <input id="chk-Cefalea-@seguimiento.SeguimientoId" class="magic-checkbox" type="checkbox" @seguimiento.Cefalea>
+                                            <label for="chk-Cefalea-@seguimiento.SeguimientoId">Cefaléa</label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <input id="chk-DolorMuscular-@seguimiento.SeguimientoId" class="magic-checkbox" type="checkbox" @seguimiento.DolorMuscular>
+                                            <label for="chk-DolorMuscular-@seguimiento.SeguimientoId">Dolor Muscular</label>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <input id="chk-PerdidaOlfato-@seguimiento.SeguimientoId" class="magic-checkbox" type="checkbox" @seguimiento.PerdidaOlfato>
+                                            <label for="chk-PerdidaOlfato-@seguimiento.SeguimientoId">Perdida de Olfato</label>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <input id="chk-DolorMuscular-@seguimiento.SeguimientoId" class="magic-checkbox" type="checkbox" @seguimiento.DolorMuscular>
-                                    <label for="chk-DolorMuscular-@seguimiento.SeguimientoId">Dolor Muscular</label>
-                                </div>
-                                <div class="col-md-4">
-                                    <input id="chk-PerdidaOlfato-@seguimiento.SeguimientoId" class="magic-checkbox" type="checkbox" @seguimiento.PerdidaOlfato>
-                                    <label for="chk-PerdidaOlfato-@seguimiento.SeguimientoId">Perdida de Olfato</label>
-                                </div>
-                            </div>                            
-                        </div>
-                    </div>
 
-                    @if (seguimiento.NroSeguimiento == 1)
-                    {
-                        <div class="timeline-label">
-                            <p class="text-bold"><a href="#" class="text-warning">Factores de riesgo</a></p>
-                            <hr class="new-section-xs">
-                            <div  id="panel-checkbox-aditional-@seguimiento.SeguimientoId" class="panel-sintomas">
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <input id="chk-HipertensionArterial-@seguimiento.SeguimientoId" class="magic-checkbox" type="checkbox" @seguimiento.HipertensionArterial>
-                                        <label for="chk-HipertensionArterial-@seguimiento.SeguimientoId">Hipertensión Arterial</label>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <input id="chk-PulmonarCronica-@seguimiento.SeguimientoId" class="magic-checkbox" type="checkbox" @seguimiento.PulmonarCronica>
-                                        <label for="chk-PulmonarCronica-@seguimiento.SeguimientoId">Enf. Pulmonar Crónica</label>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <input id="chk-AsmaModeradoSevero-@seguimiento.SeguimientoId" class="magic-checkbox" type="checkbox" @seguimiento.AsmaModeradoSevero>
-                                        <label for="chk-AsmaModeradoSevero-@seguimiento.SeguimientoId">Asma Moderado/Sev.</label>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <input id="chk-Diabetes-@seguimiento.SeguimientoId" class="magic-checkbox" type="checkbox" @seguimiento.Diabetes>
-                                        <label for="chk-Diabetes-@seguimiento.SeguimientoId">Diabetes</label>
-                                    </div>
+                            @if (seguimiento.NroSeguimiento == 1)
+                            {
+                                <div class="timeline-label">
+                                    <p class="text-bold"><a href="#" class="text-warning">Factores de riesgo</a></p>
+                                    <hr class="new-section-xs">
+                                    <div id="panel-checkbox-aditional-@seguimiento.SeguimientoId" class="panel-sintomas">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <input id="chk-HipertensionArterial-@seguimiento.SeguimientoId" class="magic-checkbox" type="checkbox" @seguimiento.HipertensionArterial>
+                                                <label for="chk-HipertensionArterial-@seguimiento.SeguimientoId">Hipertensión Arterial</label>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <input id="chk-PulmonarCronica-@seguimiento.SeguimientoId" class="magic-checkbox" type="checkbox" @seguimiento.PulmonarCronica>
+                                                <label for="chk-PulmonarCronica-@seguimiento.SeguimientoId">Enf. Pulmonar Crónica</label>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <input id="chk-AsmaModeradoSevero-@seguimiento.SeguimientoId" class="magic-checkbox" type="checkbox" @seguimiento.AsmaModeradoSevero>
+                                                <label for="chk-AsmaModeradoSevero-@seguimiento.SeguimientoId">Asma Moderado/Sev.</label>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <input id="chk-Diabetes-@seguimiento.SeguimientoId" class="magic-checkbox" type="checkbox" @seguimiento.Diabetes>
+                                                <label for="chk-Diabetes-@seguimiento.SeguimientoId">Diabetes</label>
+                                            </div>
 
-                                    <div class="col-md-4">
-                                        <input id="chk-Mayor65-@seguimiento.SeguimientoId" class="magic-checkbox" type="checkbox" @seguimiento.Mayor65>
-                                        <label for="chk-Mayor65-@seguimiento.SeguimientoId">Mayor de 65 años</label>
-                                    </div>
+                                            <div class="col-md-4">
+                                                <input id="chk-Mayor65-@seguimiento.SeguimientoId" class="magic-checkbox" type="checkbox" @seguimiento.Mayor65>
+                                                <label for="chk-Mayor65-@seguimiento.SeguimientoId">Mayor de 65 años</label>
+                                            </div>
 
-                                    <div class="col-md-4">
-                                        <input id="chk-Cancer-@seguimiento.SeguimientoId" class="magic-checkbox" type="checkbox" @seguimiento.Cancer>
-                                        <label for="chk-Cancer-@seguimiento.SeguimientoId">Cáncer</label>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <input id="chk-CardiovascularGrave-@seguimiento.SeguimientoId" class="magic-checkbox" type="checkbox" @seguimiento.CardiovascularGrave>
-                                        <label for="chk-CardiovascularGrave-@seguimiento.SeguimientoId">Enf. Cardio. Grave</label>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <input id="chk-ImcMayor40-@seguimiento.SeguimientoId" class="magic-checkbox" type="checkbox" @seguimiento.ImcMayor40>
-                                        <label for="chk-ImcMayor40-@seguimiento.SeguimientoId">Imc Mayor a 40</label>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <input id="chk-TratInmunosupresor-@seguimiento.SeguimientoId" class="magic-checkbox" type="checkbox" @seguimiento.TratInmunosupresor>
-                                        <label for="chk-TratInmunosupresor-@seguimiento.SeguimientoId">Trat. Inmunosupresor</label>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <input id="chk-HipertensionArterialNoControlada-@seguimiento.SeguimientoId" class="magic-checkbox" type="checkbox" @seguimiento.HipertensionArterialNoControlada>
-                                        <label for="chk-HipertensionArterialNoControlada-@seguimiento.SeguimientoId">Hiper.Arte.no Controlada</label>
-                                        
-                                    </div>
-                                    <div class="col-md-4">
-                                        <input id="chk-RenalDialisis-@seguimiento.SeguimientoId" class="magic-checkbox" type="checkbox" @seguimiento.RenalDialisis>
-                                        <label for="chk-RenalDialisis-@seguimiento.SeguimientoId">Enf. Renal Crónica c/Dialisis</label>                                        
-                                    </div>
-                                </div>                                
-                            </div>
-                            </div>
-                        <div class="timeline-label">
-                            <p class="text-bold"><a href="#" class="text-warning">Diagnósticos</a></p>
-                            <hr class="new-section-xs">
-                            <div class="row">
-                                <div id="panel-checkbox-Dx-@seguimiento.SeguimientoId" class="panel-sintomas">
-                                    <div class="row col-12">
-                                        <div class="col-md-6">
-                                            <input id="chk-CasoPositivo-@seguimiento.SeguimientoId" class="magic-checkbox" type="checkbox" @seguimiento.CasoPositivo>
-                                            <label for="chk-CasoPositivo-@seguimiento.SeguimientoId">Caso positivo para COVID-19 (U07.1)</label>
+                                            <div class="col-md-4">
+                                                <input id="chk-Cancer-@seguimiento.SeguimientoId" class="magic-checkbox" type="checkbox" @seguimiento.Cancer>
+                                                <label for="chk-Cancer-@seguimiento.SeguimientoId">Cáncer</label>
+                                            </div>
                                         </div>
-                                        <div class="col-md-6">
-                                            <input id="chk-CasoSospechoso-@seguimiento.SeguimientoId" class="magic-checkbox" type="checkbox" @seguimiento.CasoSospechoso>
-                                            <label for="chk-CasoSospechoso-@seguimiento.SeguimientoId">Caso sospechoso de COVID-19 (U07.2)</label>
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <input id="chk-CardiovascularGrave-@seguimiento.SeguimientoId" class="magic-checkbox" type="checkbox" @seguimiento.CardiovascularGrave>
+                                                <label for="chk-CardiovascularGrave-@seguimiento.SeguimientoId">Enf. Cardio. Grave</label>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <input id="chk-ImcMayor40-@seguimiento.SeguimientoId" class="magic-checkbox" type="checkbox" @seguimiento.ImcMayor40>
+                                                <label for="chk-ImcMayor40-@seguimiento.SeguimientoId">Imc Mayor a 40</label>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <input id="chk-TratInmunosupresor-@seguimiento.SeguimientoId" class="magic-checkbox" type="checkbox" @seguimiento.TratInmunosupresor>
+                                                <label for="chk-TratInmunosupresor-@seguimiento.SeguimientoId">Trat. Inmunosupresor</label>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="row col-12">
-                                        <div class="col-md-6">
-                                            <input id="chk-RinofaringitisAguda-@seguimiento.SeguimientoId" class="magic-checkbox" type="checkbox" @seguimiento.RinofaringitisAguda>
-                                            <label for="chk-RinofaringitisAguda-@seguimiento.SeguimientoId">Rinofaringitis aguda (J00)</label>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <input id="chk-ContactoEnfermedades-@seguimiento.SeguimientoId" class="magic-checkbox" type="checkbox" @seguimiento.ContactoEnfermedades>
-                                            <label for="chk-ContactoEnfermedades-@seguimiento.SeguimientoId">Contacto, exposición a enfermedades transmisibles (Z20.8)</label>
-                                        </div>
-                                    </div>
-                                    <div class="row col-12">
-                                        <div class="col-md-6">
-                                            <input id="chk-Aislamiento-@seguimiento.SeguimientoId" class="magic-checkbox" type="checkbox" @seguimiento.Aislamiento>
-                                            <label for="chk-Aislamiento-@seguimiento.SeguimientoId">Aislamiento (Z29.0)</label>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <input id="chk-NeumoniaViral-@seguimiento.SeguimientoId" class="magic-checkbox" type="checkbox" @seguimiento.NeumoniaViral>
-                                            <label for="chk-NeumoniaViral-@seguimiento.SeguimientoId">Neumonía viral (J12)</label>
-                                        </div>
-                                    </div>
-                                    <div class="row col-12">
-                                        <div class="col-md-6">
-                                            <input id="chk-Otros-@seguimiento.SeguimientoId" class="magic-checkbox" type="checkbox" @seguimiento.Otros>
-                                            <label for="chk-Otros-@seguimiento.SeguimientoId">Otros</label>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <input type="text" class="form-control" name="name" value="" />
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <input id="chk-HipertensionArterialNoControlada-@seguimiento.SeguimientoId" class="magic-checkbox" type="checkbox" @seguimiento.HipertensionArterialNoControlada>
+                                                <label for="chk-HipertensionArterialNoControlada-@seguimiento.SeguimientoId">Hiper.Arte.no Controlada</label>
+
+                                            </div>
+                                            <div class="col-md-4">
+                                                <input id="chk-RenalDialisis-@seguimiento.SeguimientoId" class="magic-checkbox" type="checkbox" @seguimiento.RenalDialisis>
+                                                <label for="chk-RenalDialisis-@seguimiento.SeguimientoId">Enf. Renal Crónica c/Dialisis</label>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                                </div>                            
-                        </div>
+                                <div class="timeline-label">
+                                    <p class="text-bold"><a href="#" class="text-warning">Diagnósticos</a></p>
+                                    <hr class="new-section-xs">
+                                    <div class="row">
+                                        <div id="panel-checkbox-Dx-@seguimiento.SeguimientoId" class="panel-sintomas">
+                                            <div class="row col-12">
+                                                <div class="col-md-6">
+                                                    <input id="chk-CasoPositivo-@seguimiento.SeguimientoId" class="magic-checkbox" type="checkbox" @seguimiento.CasoPositivo>
+                                                    <label for="chk-CasoPositivo-@seguimiento.SeguimientoId">Caso positivo para COVID-19 (U07.1)</label>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <input id="chk-CasoSospechoso-@seguimiento.SeguimientoId" class="magic-checkbox" type="checkbox" @seguimiento.CasoSospechoso>
+                                                    <label for="chk-CasoSospechoso-@seguimiento.SeguimientoId">Caso sospechoso de COVID-19 (U07.2)</label>
+                                                </div>
+                                            </div>
+                                            <div class="row col-12">
+                                                <div class="col-md-6">
+                                                    <input id="chk-RinofaringitisAguda-@seguimiento.SeguimientoId" class="magic-checkbox" type="checkbox" @seguimiento.RinofaringitisAguda>
+                                                    <label for="chk-RinofaringitisAguda-@seguimiento.SeguimientoId">Rinofaringitis aguda (J00)</label>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <input id="chk-ContactoEnfermedades-@seguimiento.SeguimientoId" class="magic-checkbox" type="checkbox" @seguimiento.ContactoEnfermedades>
+                                                    <label for="chk-ContactoEnfermedades-@seguimiento.SeguimientoId">Contacto, exposición a enfermedades transmisibles (Z20.8)</label>
+                                                </div>
+                                            </div>
+                                            <div class="row col-12">
+                                                <div class="col-md-6">
+                                                    <input id="chk-Aislamiento-@seguimiento.SeguimientoId" class="magic-checkbox" type="checkbox" @seguimiento.Aislamiento>
+                                                    <label for="chk-Aislamiento-@seguimiento.SeguimientoId">Aislamiento (Z29.0)</label>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <input id="chk-NeumoniaViral-@seguimiento.SeguimientoId" class="magic-checkbox" type="checkbox" @seguimiento.NeumoniaViral>
+                                                    <label for="chk-NeumoniaViral-@seguimiento.SeguimientoId">Neumonía viral (J12)</label>
+                                                </div>
+                                            </div>
+                                            <div class="row col-12">
+                                                <div class="col-md-6">
+                                                    <input id="chk-Otros-@seguimiento.SeguimientoId" class="magic-checkbox" type="checkbox" @seguimiento.Otros>
+                                                    <label for="chk-Otros-@seguimiento.SeguimientoId">Otros</label>
+                                                </div>
+                                                @if (@seguimiento.Otros != "checked")
+                                                {
+                                                    <div class="col-md-6">
+                                                        <input id="txt-Otros-@seguimiento.SeguimientoId" type="text" class="form-control inputChange" name="name" value="" disabled />
+                                                    </div>
+                                                }
+                                                else
+                                                {
+                                                    <div class="col-md-6">
+                                                        <input id="txt-Otros-@seguimiento.SeguimientoId" type="text" class="form-control inputChange" name="name" value="@seguimiento.OtrosComentar" />
+                                                    </div>
+                                                }
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
 
                             }
 
@@ -341,10 +399,91 @@
     </div>
 </div>
 
+
+<!--Modal Examen-->
+<!--===================================================-->
+<div class="modal fade"
+     id="modal-examen"
+     role="dialog"
+     tabindex="-1"
+     aria-labelledby="modal-examen"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!--Modal header-->
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    <i class="pci-cross pci-circle"></i>
+                </button>
+                <h4 class="modal-title">Registro de Examen</h4>
+            </div>
+
+            <!--Modal body-->
+            <div class="modal-body">
+                <form id="form-examen">
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label class="control-label">Fecha</label>
+                                    <input type="text" class="form-control" id="dtpFechaExamen" name="validateFechaExamen">
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label class="control-label">Tipo Examen</label>
+                                    <select id="ddl-TipoExamen" class="selectpicker" data-width="80%">
+                                        <option value="1">Prueba rápida</option>
+                                        <option value="2">Molecular</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label class="control-label">Resultado</label>
+                                    <select id="ddl-ExamenResultado" class="selectpicker" data-width="95%">
+                                        <option value="0">Negativo</option>
+                                        <option value="1">No Válido</option>
+                                        <option value="2">IgM Positivo</option>
+                                        <option value="3">IgG Positivo</option>
+                                        <option value="4">IgM e IgG Positivo</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="panel-footer text-right">
+                        <button class="btn btn-success" id="btnRegistrarExamen" type="submit">Registrar Examen</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!--===================================================-->
+<!--End Default Bootstrap Modal-->
+
+<div class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered text-center" role="document">
+        <div class="load6">
+            <div class="loader"></div>
+        </div>
+    </div>
+</div>
+
 <script src="~/Scripts/jquery-3.4.1.js"></script>
+<script src="~/Scripts/jquery.flot.min.js"></script>
+<script src="~/Scripts/jquery.flot.categories.min.js"></script>
+<script src="~/Scripts/jquery.flot.orderBars.min.js"></script>
+<script src="~/Scripts/jquery.flot.tooltip.min.js"></script>
+<script src="~/Scripts/jquery.flot.resize.min.js"></script>
 <script src="~/Scripts/bootbox.min.js"></script>
+
 <script>
-    $(document).ready(function () {       
+    $(document).ready(function () {
+
+        $('#txtFechaExamen').datepicker({ autoclose: true });
 
         $("#btn-AgregarSeguimiento").on("click", function () {
 
@@ -375,35 +514,83 @@
 
         });
 
+        $("#form-examen").submit(function (ev) { ev.preventDefault(); });
+
+        $("#btnRegistrarExamen").on("click", function () {
+
+            if ($("#dtpFechaExamen").val() == undefined) {
+                alert("El campo fecha es requerido");
+                return;
+            }
+
+            let fechaSeguimiento = $("#dtpFechaExamen").val();
+            let tipoExamen = $("#ddl-TipoExamen").val();
+            let resultadoExamen = $("#ddl-ExamenResultado").val();
+            let trabajadorId = $("#txtRegistroTrabajadoId").val();
+
+            var datos = { "FechaExamen": fechaSeguimiento, "TrabajadorId": trabajadorId, "TipoExamen": tipoExamen, "ResultadoExamen": resultadoExamen };
+
+            $.ajax({
+                type: "post",
+                url: "/examen/crearexamen",
+                data: datos,
+                success: function (data) {
+                    $("#modal-examen").modal("hide");
+                    tablaExamenes();
+                },
+                error: function (jqxhr, exception) {
+                    alert("ocurrió un error en la operación")
+                }
+            });
+        });
+
+        $('#modal-examen')
+            .on('shown.bs.modal', function () {
+                $("#dtpFechaExamen").val(moment(Date.now()).format("DD/MM/yyyy"));
+                $('#form-examen').find('[name="dtpFechaExamen"]').focus();
+            })
+            .on('hidden.bs.modal', function () {
+                $('#form-examen').bootstrapValidator('resetForm', true);
+            });
+
         $(".panel-body").on("click", ".panel-sintomas input", function (e) {
             let checkId = $(e.target).attr("id");
             let id = checkId.split('-')[2];
             var labelText = $('label[for=' + checkId + ']').text();
 
+            DisableControlInputOtros(id);
+
             notificarCambio(labelText);
-            SaveChange(id);       
+            SaveChange(id);
 
         });
 
         $(".panel-body").on("blur", "textarea", function (e) {
             let textAreaId = $(e.target).attr("id");
-            let id = textAreaId.split('-')[2];            
+            let id = textAreaId.split('-')[2];
             notificarCambio("Comentario");
-            SaveChange(id);       
+            SaveChange(id);
+        });
+
+        $(".panel-body").on("blur", ".inputChange", function (e) {
+            let textOtrosId = $(e.target).attr("id");
+            let id = textOtrosId.split('-')[2];
+            notificarCambio("Otros");
+            SaveChange(id);
         });
 
         $(".panel-body").on("change", ".selectCalificacion", function (e) {
             let ddlCalificacionId = $(e.target).attr("id");
-            let id = ddlCalificacionId.split('-')[2];            
-            notificarCambio("Calificación");   
-            SaveChange(id);   
+            let id = ddlCalificacionId.split('-')[2];
+            notificarCambio("Calificación");
+            SaveChange(id);
         });
 
         $(".panel-body").on("change", ".ResultadoCovid19", function (e) {
             let ddlResultadoCovid19Id = $(e.target).attr("id");
-            let id = ddlResultadoCovid19Id.split('-')[2];            
-            notificarCambio("Resultado Covid 19");               
-            SaveChange(id);   
+            let id = ddlResultadoCovid19Id.split('-')[2];
+            notificarCambio("Resultado Covid 19");
+            SaveChange(id);
         });
 
         $(".panel-body").on("change", ".fechaResultadoCovid19", function (e) {
@@ -438,18 +625,17 @@
                             UpdateEstadoClinico();
                             //GENERAR FICHA ALTA...
                         }
-                   
+
                     }
                 });
             } else {
                 let id = ddlCalificacionId.split('-')[2];
                 notificarCambio("Tipo Estado");
-                SaveChange(id);   
+                SaveChange(id);
             }
-            
-           });
 
-                
+        });
+
         $("#btn-Regresar-Index").on("click", function () {
             window.location = "/Home/index";
         });
@@ -476,7 +662,7 @@
 
         function UpdateEstadoClinico() {
             let registroTrabajadorId = $("#txtRegistroTrabajadoId").val();
-            let datos = {"TrabajadorId": registroTrabajadorId};
+            let datos = { "TrabajadorId": registroTrabajadorId };
 
             $.ajax({
                 type: "POST",
@@ -484,6 +670,32 @@
                 data: datos,
                 success: function (data) {
                     window.location = "/Home/index";
+                },
+                error: function (jqXHR, exception) {
+                    alert("Ocurrió un error en la operación")
+                }
+            });
+        }
+
+        function tablaExamenes() {
+
+            let registroTrabajadorId = $("#txtRegistroTrabajadoId").val();
+
+            $.ajax({
+                type: "GET",
+                url: "/Examen/ListarExamenesTrabajador?trabajadorId=" + registroTrabajadorId,
+                success: function (data) {
+                    $("#tabla-examenes").empty();
+                    var content = "";
+                    for (var i = 0; i < data.length; i++) {
+                        content += "<tr>";
+                        let fecha = moment(data[i].FechaExamen).format("DD/MM/yyyy");
+                        content += "<td><a href='#fakelink' class='btn-link'>" + fecha + "</a></td>";
+                        content += "<td>" + data[i].TipoPrueba + "</td>";
+                        content += "<td>" + data[i].Resultado + "</td>";
+                        content += "</tr>";
+                    }
+                    $("#tabla-examenes").append(content);
                 },
                 error: function (jqXHR, exception) {
                     alert("Ocurrió un error en la operación")
@@ -529,7 +741,8 @@
                     "NeumoniaViral": $("#chk-NeumoniaViral-" + seguimientoId).get(0).checked,
                     "ContactoEnfermedades": $("#chk-ContactoEnfermedades-" + seguimientoId).get(0).checked,
                     "Aislamiento": $("#chk-Aislamiento-" + seguimientoId).get(0).checked,
-                    "Otros": $("#chk-Otros-" + seguimientoId).get(0).checked
+                    "Otros": $("#chk-Otros-" + seguimientoId).get(0).checked,
+                    "OtrosComentar": $("#txt-Otros-" + seguimientoId).val()
                 }
             } else {
                 datos = {
@@ -550,7 +763,7 @@
                     "TipoEstadoId": $("#ddl-TipoEstado-" + seguimientoId + " option:selected").val()
                 }
             }
-            
+
 
             $.ajax({
                 type: "POST",
@@ -566,30 +779,58 @@
         }
 
         function BloquearSintomas(id) {
-            
+
             let tipoSeguimientoId = $("#ddl-TipoSeguimiento-" + id + " option:selected").val();
-            
+
             if (tipoSeguimientoId == 1) {
                 $("#panel-checkbox-sintomas-" + id).removeClass("disabledbutton");
-            }               
+            }
             else {
                 $("#panel-checkbox-sintomas-" + id).addClass("disabledbutton");
 
-                $("#chk-SensacionFiebre-" + id).prop('checked', false); 
-                $("#chk-Tos-" + id).prop('checked', false); 
-                $("#chk-DolorGarganta-" + id).prop('checked', false); 
-                $("#chk-DificultadRespiratoria-" + id).prop('checked', false); 
-            }                 
+                $("#chk-SensacionFiebre-" + id).prop('checked', false);
+                $("#chk-Tos-" + id).prop('checked', false);
+                $("#chk-DolorGarganta-" + id).prop('checked', false);
+                $("#chk-DificultadRespiratoria-" + id).prop('checked', false);
+            }
         }
 
+    });
 
+    $(document).on('nifty.ready', function () {
+        $('#FechaInicioSintomas .input-group.date').datepicker({ autoclose: true, format: 'dd/mm/yyyy' });
+        $("#dtpFechaExamen").datepicker({ autoclose: true, format: 'dd/mm/yyyy' })
+        var faIcon = {
+            valid: 'fa fa-check-circle fa-lg text-success',
+            invalid: 'fa fa-times-circle fa-lg',
+            validating: 'fa fa-refresh'
+        }
+
+        $('#form-examen').bootstrapValidator({
+            excluded: ':disabled',
+            feedbackIcons: faIcon,
+            fields: {
+                validateFechaExamen: {
+                    validators: {
+                        notEmpty: {
+                            message: 'La fecha es requerido'
+                        }
+                    }
+                }
+            }
+        }).on('success.field.bv', function (e, data) {
+            var $parent = data.element.parents('.form-group');
+
+            // Remove the has-success class
+            $parent.removeClass('has-success');
+        });
     });
 
     function CambiarFecha(idSeguimiento, idTrabajador) {
         bootbox.prompt({
             title: "Actualizar fecha de seguimiento",
             inputType: 'date',
-            callback: function (result) {               
+            callback: function (result) {
 
                 if (result) {
                     var datos = { "SeguimientoId": idSeguimiento, "Fecha": result, "TrabajadorId": idTrabajador };
@@ -601,10 +842,10 @@
                             console.log("DATA", data);
                             if (data == "") {
                                 alert("Conflicto de fechas");
-                            } 
-                                window.location = "/MonitoringWorker/RegisterMonitoring?id=" + idTrabajador
-                            
-                            
+                            }
+                            window.location = "/MonitoringWorker/RegisterMonitoring?id=" + idTrabajador
+
+
                         },
                         error: function (jqXHR, exception) {
                             alert("Ocurrió un error en la operación")
@@ -624,7 +865,18 @@
         });
     }
 
-    $(document).on('nifty.ready', function () {
-        $('#FechaInicioSintomas .input-group.date').datepicker({ autoclose: true, format: 'dd/mm/yyyy' });
-    });
+    function DisableControlInputOtros(id) {
+        console.log("SSS", $("#chk-Otros-" + id).val());
+        if ($("#chk-Otros-" + id).val() == undefined) return;
+
+        var val = $("#chk-Otros-" + id).get(0).checked;
+        if (val) {
+            $("#txt-Otros-" + id).prop("disabled", false);
+        } else {
+            $("#txt-Otros-" + id).prop("disabled", true);
+            $("#txt-Otros-" + id).val('');
+        }
+
+    }
+
 </script>
