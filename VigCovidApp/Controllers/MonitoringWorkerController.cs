@@ -27,12 +27,102 @@ namespace VigCovidApp.Controllers
 
             ViewBag.INDICADORES = GetIndicadores(id);
 
+            ViewBag.FECHASIMPORTANTES = GetFechasImportantes_(id);
+
             ViewBag.EXAMENES = ListarExamenesTrabajador(id);
 
             var seguimientos = Seguimientos(id);
             if (seguimientos.Count() == 0) return View(new List<SeguimientosViewModel>());
 
             return View(seguimientos);
+        }
+
+        public JsonResult GetFechasImportantes(int trabajadorId)
+        {
+            var fechas = new List<FechaImportanteViewModels>();
+
+            var InicioSeguimiento = (from A in db.Seguimiento where A.NroSeguimiento == 1 && A.RegistroTrabajadorId == trabajadorId select A).FirstOrDefault();
+            #region Fecha incio seguimiento
+            var oInicioSeguimiento = new FechaImportanteViewModels();
+            oInicioSeguimiento.Fecha = InicioSeguimiento.Fecha;
+            oInicioSeguimiento.DateDate = InicioSeguimiento.Fecha.ToString("dd/MM/yyyy");
+            oInicioSeguimiento.Titulo = "Inicio Seguimiento";
+            oInicioSeguimiento.Comentario = InicioSeguimiento.Comentario;
+
+            fechas.Add(oInicioSeguimiento);
+            #endregion|
+
+            #region Fecha incio síntomas
+            var oInicioSintomas = new FechaImportanteViewModels();
+            oInicioSintomas.Fecha = InicioSeguimiento.Fecha;
+            oInicioSintomas.DateDate = InicioSeguimiento.Fecha.ToString("dd/MM/yyyy");
+            oInicioSintomas.Titulo = "Inicio Síntomas";
+            oInicioSintomas.Comentario = InicioSeguimiento.Comentario;
+
+            fechas.Add(oInicioSintomas);
+            #endregion|
+
+            #region Fecha Exámenes
+
+            var examenes = (from A in db.Examen where A.TrabajadorId == trabajadorId select A).ToList();
+
+            foreach (var item in examenes)
+            {
+                fechas.Add(new FechaImportanteViewModels { Fecha=item.Fecha,  DateDate = item.Fecha.ToString("dd/MM/yyyy"), Titulo = item.TipoPrueba.ToString(), Comentario = item.Resultado.ToString() });
+            }
+            #endregion
+            fechas.Sort((x, y) => x.Fecha.CompareTo(y.Fecha));
+
+            return Json(fechas, "application/json", Encoding.UTF8, JsonRequestBehavior.AllowGet);
+        }
+
+        public List<FechaImportanteViewModels> GetFechasImportantes_(int trabajadorId)
+        {
+            var fechas = new List<FechaImportanteViewModels>();
+
+            var InicioSeguimiento = (from A in db.Seguimiento where A.NroSeguimiento == 1 && A.RegistroTrabajadorId == trabajadorId select A).FirstOrDefault();
+            #region Fecha incio seguimiento
+            var oInicioSeguimiento = new FechaImportanteViewModels();
+            oInicioSeguimiento.Fecha = InicioSeguimiento.Fecha;
+            oInicioSeguimiento.DateLine = InicioSeguimiento.Fecha.ToString("dd/MMM");
+            oInicioSeguimiento.DateDate = InicioSeguimiento.Fecha.ToString("dd/MM/yyyy");
+            oInicioSeguimiento.Titulo = "Inicio Seguimiento";
+            oInicioSeguimiento.Comentario = InicioSeguimiento.Comentario;
+
+            fechas.Add(oInicioSeguimiento);
+            #endregion|
+
+            #region Fecha incio síntomas
+            var oInicioSintomas = new FechaImportanteViewModels();
+            oInicioSintomas.Fecha = InicioSeguimiento.Fecha;
+            oInicioSintomas.DateDate = InicioSeguimiento.Fecha.ToString("dd/MM/yyyy");
+            oInicioSintomas.Titulo = "Inicio Síntomas";
+            oInicioSintomas.Comentario = InicioSeguimiento.Comentario;
+
+            fechas.Add(oInicioSintomas);
+            #endregion|
+
+            #region Fecha Exámenes
+
+            var examenes = (from A in db.Examen where A.TrabajadorId == trabajadorId select A).ToList();
+
+            foreach (var item in examenes)
+            {
+                fechas.Add(new FechaImportanteViewModels { Fecha = item.Fecha, DateLine = item.Fecha.ToString("dd/MMM"), DateDate = item.Fecha.ToString("dd/MM/yyyy"), Titulo = item.TipoPrueba == 1 ? "Prueba Rápida" : "Examen Molecular", Comentario = ObtenerResultado(item.Resultado) });
+            }
+            #endregion
+            fechas.Sort((x, y) => x.Fecha.CompareTo(y.Fecha));
+
+            var result = fechas.GroupBy(g => g.Fecha)
+                .Select(s => new FechaImportanteViewModels
+                {
+                    Fecha = s.Key,
+                    DateLine = s.Select(ss => ss.DateLine).FirstOrDefault(),
+                    DateDate = s.Select(ss => ss.DateDate).FirstOrDefault(),
+                    Titulo =  string.Join("-", s.Select(ss => ss.Titulo)),
+                    Comentario = string.Join("-", s.Select(ss => ss.Comentario)),
+                }).ToList();
+            return result;
         }
 
         [HttpGet]
@@ -280,7 +370,7 @@ namespace VigCovidApp.Controllers
             var seguimientos = db.Seguimiento.Where(w => w.RegistroTrabajadorId == registroTrabajadorId).ToList().OrderByDescending(p => p.NroSeguimiento).ToList();
             var datosRegistro = db.RegistroTrabajador.Where(w => w.Id == registroTrabajadorId).FirstOrDefault();
 
-            result.Trabajador = datosRegistro.NombreCompleto;
+            result.Trabajador = datosRegistro.ApePaterno + " "+ datosRegistro.ApeMaterno + ", " + datosRegistro.NombreCompleto ;
             result.Empresa = GetEmpresa(datosRegistro.EmpresaCodigo);
             result.Celular = datosRegistro.Celular;
             result.Email = datosRegistro.Email;

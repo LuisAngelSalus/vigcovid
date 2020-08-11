@@ -21,7 +21,7 @@ namespace VigCovidApp.Models
         {
             var empresasAsignadas = new List<EmpresaAsignada>();
             var result = false;
-            if (_userName == "francisco"  && _password == "12345678" 
+            if (_userName == "ricardo" && _password == "12345678" 
                 && (_empresaCodigo == (int)Enums.CodigoEmpresa.SalusLaboris || _empresaCodigo == (int)Enums.CodigoEmpresa.Ambev))
             {
 
