@@ -13,6 +13,7 @@ namespace VigCovidApp.Models
         public int RegistroTrabajadorId { get; set; }
         public DateTime Fecha { get; set; }
         public int ClasificacionId { get; set; }
+        public DateTime? FechaInicioSintomas { get; set; }
         public bool? SensacionFiebre { get; set; }
         public bool? Tos { get; set; }
         public bool? DolorGarganta { get; set; }

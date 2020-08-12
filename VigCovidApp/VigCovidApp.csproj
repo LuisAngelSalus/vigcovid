@@ -159,6 +159,7 @@
     <Compile Include="Security\HttpSessionContext.cs" />
     <Compile Include="Utils\Export\ITextEvents.cs" />
     <Compile Include="ViewModels\ActualizarSeguimientoViewModel.cs" />
+    <Compile Include="ViewModels\FechaImportanteViewModels.cs" />
     <Compile Include="ViewModels\IndicadoresViewModel.cs" />
     <Compile Include="ViewModels\ListarExamenesViewModel.cs" />
     <Compile Include="ViewModels\ListaTrabajadoresViewModel.cs" />
@@ -189,9 +190,12 @@
     <Content Include="Content\css-loaders.css" />
     <Content Include="Content\fonts\nifty-demo-icons.svg" />
     <Content Include="Content\footable.core.min.css" />
+    <Content Include="Content\horizontal-timeline.css" />
+    <Content Include="img\cd-arrow.svg" />
     <Content Include="Content\load6.css" />
     <Content Include="Content\nifty-demo-icons.min.css" />
     <Content Include="Content\nifty.min.css" />
+    <Content Include="Content\reset.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -206,7 +210,9 @@
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\bootstrapValidator.min.js" />
     <Content Include="Scripts\footable.all.min.js" />
+    <Content Include="Scripts\horizontal-timeline.js" />
     <Content Include="Scripts\icons.js" />
+    <Content Include="Scripts\jquery-2.1.4.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
     <Content Include="Scripts\jquery-3.4.1.slim.js" />
@@ -218,11 +224,13 @@
     <Content Include="Scripts\jquery.flot.resize.min.js" />
     <Content Include="Scripts\jquery.flot.tooltip.min.js" />
     <Content Include="Scripts\jquery.maskedinput.min.js" />
+    <Content Include="Scripts\jquery.mobile.custom.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\modernizr.js" />
     <Content Include="Scripts\moment-with-locales.js" />
     <Content Include="Scripts\moment-with-locales.min.js" />
     <Content Include="Scripts\moment.js" />
