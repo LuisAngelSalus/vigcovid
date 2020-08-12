@@ -68,7 +68,7 @@ namespace VigCovidApp.Controllers
 
             foreach (var item in examenes)
             {
-                fechas.Add(new FechaImportanteViewModels { Fecha=item.Fecha,  DateDate = item.Fecha.ToString("dd/MM/yyyy"), Titulo = item.TipoPrueba.ToString(), Comentario = item.Resultado.ToString() });
+                fechas.Add(new FechaImportanteViewModels { Fecha = item.Fecha, DateDate = item.Fecha.ToString("dd/MM/yyyy"), Titulo = item.TipoPrueba.ToString(), Comentario = item.Resultado.ToString() });
             }
             #endregion
             fechas.Sort((x, y) => x.Fecha.CompareTo(y.Fecha));
@@ -121,7 +121,7 @@ namespace VigCovidApp.Controllers
                     Fecha = s.Key,
                     DateLine = s.Select(ss => ss.DateLine).FirstOrDefault(),
                     DateDate = s.Select(ss => ss.DateDate).FirstOrDefault(),
-                    Titulo =  string.Join("-", s.Select(ss => ss.Titulo)),
+                    Titulo = string.Join("-", s.Select(ss => ss.Titulo)),
                     Comentario = string.Join("-", s.Select(ss => ss.Comentario)),
                 }).ToList();
             return result;
@@ -388,10 +388,17 @@ namespace VigCovidApp.Controllers
             var seguimientos = db.Seguimiento.Where(w => w.RegistroTrabajadorId == registroTrabajadorId).ToList().OrderByDescending(p => p.NroSeguimiento).ToList();
             var datosRegistro = db.RegistroTrabajador.Where(w => w.Id == registroTrabajadorId).FirstOrDefault();
 
-            result.Trabajador = datosRegistro.ApePaterno + " "+ datosRegistro.ApeMaterno + ", " + datosRegistro.NombreCompleto ;
+            result.Trabajador = datosRegistro.ApePaterno + " " + datosRegistro.ApeMaterno + ", " + datosRegistro.NombreCompleto;
             result.Empresa = GetEmpresa(datosRegistro.EmpresaCodigo);
             result.Celular = datosRegistro.Celular;
             result.Email = datosRegistro.Email;
+            result.Edad = datosRegistro.Edad;
+            result.Dni = datosRegistro.Dni;
+            result.PuestoTrabajo = datosRegistro.PuestoTrabajo;
+            result.ModoIngreso = (ModoIngreso)datosRegistro.ModoIngreso;
+            result.ViaIngreso = (ViaIngreso)datosRegistro.ViaIngreso;
+            result.FechaIngreso = datosRegistro.FechaIngreso.ToString("dd/MM/yyyy");
+
             if (seguimientos.Count > 0)
             {
                 result.FechaRegistro = seguimientos.Find(p => p.NroSeguimiento == 1).Fecha.ToString("dd/MM/yyyy");
@@ -420,8 +427,8 @@ namespace VigCovidApp.Controllers
 
             var dias = (DateTime.Now - primerSeguimiento).TotalDays;
             var rDias = Decimal.Parse(dias.ToString());
-            
-            return Decimal.Round(rDias).ToString();  
+
+            return Decimal.Round(rDias).ToString();
         }
 
         private IndicadorCovid19 GetDiasPrueba(List<Seguimiento> seguimientos)
@@ -618,17 +625,52 @@ namespace VigCovidApp.Controllers
 
         #endregion
 
-        public FileResult ExportAltaMedica()
+        public FileResult ExportAltaMedica(int id)
         {
-            MemoryStream memoryStream = GetPdfAltaMedica();
+            var indicadores = GetIndicadores(id);
+            var examenes = ListarExamenesTrabajador(id);
 
-            string fileName = string.Empty;
+            MemoryStream memoryStream = GetPdfAltaMedica(
+                indicadores.Trabajador,
+                indicadores.Edad.ToString(),
+                "HOMBRE",
+                indicadores.Dni,
+                indicadores.Empresa,
+                indicadores.PuestoTrabajo,
+                indicadores.ModoIngreso.ToString(),
+                indicadores.ViaIngreso.ToString(),
+                indicadores.FechaRegistro.ToString(),
+                "20",
+                string.Empty,
+                indicadores.FechaIngreso,
+                examenes
+                );
+
+
             DateTime fileCreationDatetime = DateTime.Now;
+            string fileName = string.Format("{0}_{1}.pdf", "monitoring_worker", fileCreationDatetime.ToString(@"yyyyMMdd") + "_" + fileCreationDatetime.ToString(@"HHmmss"));
+
 
             return File(memoryStream, "application/pdf", fileName);
         }
 
-        private MemoryStream GetPdfAltaMedica()
+        private MemoryStream GetPdfAltaMedica(
+            string nombres,
+            string edad,
+            string sexo,
+            string dni,
+            string empresa,
+            string puesto,
+            string motivo,
+            string via,
+            string fechaIngreso,
+            string numeroDias,
+            string comentarios,
+            //string fechaInicio,
+            //string fechaFin,
+            string fecha,
+            List<ListarExamenesViewModel> listarExamenesViewModels
+            )
         {
             MemoryStream memoryStream = new MemoryStream();
             using (Document document = new Document(PageSize.A4, 40, 40, 140, 40))
@@ -640,6 +682,50 @@ namespace VigCovidApp.Controllers
                     pdfWriter.PageEvent = new ITextEvents();
 
                     document.Open();
+
+                    Chunk chunkFecha = new Chunk("Fecha: " + fecha + "\n");
+                    Chunk chunkNombres = new Chunk("Apellidos y Nombres: " + nombres + "\n");
+                    Chunk chunkDNI = new Chunk("DNI o similar: " + dni + "      Edad: años: " + edad + "        Sexo: " + sexo + "\n");
+                    Chunk chunkEmpresa = new Chunk("Emplesa empleadora: " + empresa + "             Puesto de trabajo: " + puesto + "\n");
+                    Chunk chunkMotivo = new Chunk("Motivo de la vigilancia epidemiológica: " + motivo + "\n\n\n");
+                    Chunk chunkVia = new Chunk("Via de ingreso a la vigilancia médica COVID: " + via + "\n");
+                    Chunk chunkFechaIngreso = new Chunk("Fecha en que ingreso a la vigilancia médica COVID: " + fechaIngreso + "\n\n");
+                    Chunk chunkResultado = new Chunk("Resultado de pruebas para el diagnóstico de COVID-19\n\n");
+
+                    string strExamenes = string.Empty;
+
+                    foreach (var item in listarExamenesViewModels)
+                    {
+                        strExamenes += string.Format("{0}       {1}          Fecha   {2}\n", item.TipoPrueba, item.Resultado, item.FechaExamen);
+                    }
+
+                    Chunk chunkExamenes = new Chunk(strExamenes + "\n");
+                    Chunk chunkConclusiones = new Chunk("Conclusiones para el alta epidemiológica\n\n");
+                    Chunk chunkNumeroDias = new Chunk("Número de días de cuarentena / aislamiento: " + numeroDias + "\n\n");
+                    Chunk chunkComentarios = new Chunk("Comentarios para el alta:\n\n" + comentarios + "\n\n");
+                    Chunk chunkMedico = new Chunk("EL MEDICO QUE SUSCRIBE CERTIFICA EL ALTA EPIDEMIOLÓGICA DE LA VIGILANCIA MÉDICA POR CAUSA RELACIONADA A COVID-19 acorde a las recomendaciones técnicas y normativas (RM-193-2020-MINSA y Modificatoria RM-375-2020-MINSA, RM-448-2020-MINSA)");
+
+                    Phrase phrase = new Phrase();
+                    phrase.Add(chunkFecha);
+                    phrase.Add(chunkNombres);
+                    phrase.Add(chunkDNI);
+                    phrase.Add(chunkEmpresa);
+                    phrase.Add(chunkMotivo);
+                    phrase.Add(chunkVia);
+                    phrase.Add(chunkFechaIngreso);
+                    phrase.Add(chunkResultado);
+                    phrase.Add(chunkExamenes);
+                    phrase.Add(chunkConclusiones);
+                    phrase.Add(chunkNumeroDias);
+                    phrase.Add(chunkComentarios);
+                    phrase.Add(chunkMedico);
+
+                    Paragraph paragraph = new Paragraph();
+                    paragraph.Add(phrase);
+
+
+                    document.Add(paragraph);
+                    document.NewPage();
 
                     document.Close();
 

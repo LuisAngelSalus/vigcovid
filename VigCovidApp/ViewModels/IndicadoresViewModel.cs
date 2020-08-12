@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using static VigCovidApp.Models.Enums;
 
 namespace VigCovidApp.ViewModels
 {
@@ -17,5 +18,11 @@ namespace VigCovidApp.ViewModels
         public string NroDiasSinSintomas { get; set; }
         public string NroDiasPrueba { get; set; }
         public string ResultadoPrueba { get; set; }
+        public int? Edad { get; set; }
+        public string Dni { get; set; }
+        public string PuestoTrabajo { get; set; }
+        public ModoIngreso ModoIngreso { get; set; }
+        public ViaIngreso ViaIngreso { get; set; }
+        public string FechaIngreso { get; set; }
     }
 }
