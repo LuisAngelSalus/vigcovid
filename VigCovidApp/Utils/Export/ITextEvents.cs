@@ -64,7 +64,7 @@ namespace VigCovidApp.Utils.Export
 
             iTextSharp.text.Font baseFontBig = new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 12f, iTextSharp.text.Font.BOLD, iTextSharp.text.BaseColor.BLACK);
 
-            Phrase p1Header = new Phrase("Sample Header Here", baseFontNormal);
+            Phrase p1Header = new Phrase("ALTA EPIDEMIOLÓGICA", baseFontNormal);
 
             //Create PdfTable object
             PdfPTable pdfTab = new PdfPTable(3);
@@ -99,7 +99,7 @@ namespace VigCovidApp.Utils.Export
                 cb.AddTemplate(footerTemplate, document.PageSize.GetRight(180) + len, document.PageSize.GetBottom(30));
             }
             //Row 2
-            PdfPCell pdfCell4 = new PdfPCell(new Phrase("Sub Header Description", baseFontNormal));
+            PdfPCell pdfCell4 = new PdfPCell(new Phrase("COVID-19", baseFontNormal));
             //Row 3
 
 

@@ -624,6 +624,7 @@
                             //Actualizar Estado Clinico de trabajador
                             UpdateEstadoClinico();
                             //GENERAR FICHA ALTA...
+                            viewAltaMedica();
                         }
 
                     }
@@ -669,7 +670,7 @@
                 url: "/MonitoringWorker/UpdateEstadoClinico",
                 data: datos,
                 success: function (data) {
-                    window.location = "/Home/index";
+                    //window.location = "/Home/index";
                 },
                 error: function (jqXHR, exception) {
                     alert("Ocurrió un error en la operación")
@@ -877,6 +878,10 @@
             $("#txt-Otros-" + id).val('');
         }
 
+    }
+
+    function viewAltaMedica() {
+        window.location.href = '/MonitoringWorker/ExportAltaMedica';
     }
 
 </script>

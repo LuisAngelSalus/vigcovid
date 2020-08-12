@@ -309,7 +309,7 @@ namespace VigCovidApp.Controllers
         private string CalcularDiasSeguimiento(List<Seguimiento> seguimientos)
         {
             var primerSeguimiento = seguimientos.Find(p => p.NroSeguimiento == 1).Fecha.ToString("dd/MM/yyyy");
-            return "0";  
+            return "0";
         }
 
         private IndicadorCovid19 GetDiasPrueba(List<Seguimiento> seguimientos)
@@ -508,15 +508,45 @@ namespace VigCovidApp.Controllers
 
         public FileResult ExportAltaMedica()
         {
-            MemoryStream memoryStream = GetPdfAltaMedica();
+            MemoryStream memoryStream = GetPdfAltaMedica(
+                "CARLOS DEMO",
+                "27",
+                "HOMBRE",
+                "1234567",
+                "EL ARBOL SAC",
+                "ANALISTA",
+                "motivo de motivos",
+                "LA PUERTA",
+                "10/08/2020",
+                "20",
+                "EL PACIENTE CUMPLIO EL PROTOCOLO",
+                "10/08/2020"
+                );
 
-            string fileName = string.Empty;
+
             DateTime fileCreationDatetime = DateTime.Now;
+            string fileName = string.Format("{0}_{1}.pdf", "monitoring_worker", fileCreationDatetime.ToString(@"yyyyMMdd") + "_" + fileCreationDatetime.ToString(@"HHmmss"));
+
 
             return File(memoryStream, "application/pdf", fileName);
         }
 
-        private MemoryStream GetPdfAltaMedica()
+        private MemoryStream GetPdfAltaMedica(
+            string nombres,
+            string edad,
+            string sexo,
+            string dni,
+            string empresa,
+            string puesto,
+            string motivo,
+            string via,
+            string fechaIngreso,
+            string numeroDias,
+            string comentarios,
+            //string fechaInicio,
+            //string fechaFin,
+            string fecha
+            )
         {
             MemoryStream memoryStream = new MemoryStream();
             using (Document document = new Document(PageSize.A4, 40, 40, 140, 40))
@@ -528,6 +558,45 @@ namespace VigCovidApp.Controllers
                     pdfWriter.PageEvent = new ITextEvents();
 
                     document.Open();
+
+                    Chunk chunkFecha = new Chunk("Fecha: " + fecha + "\n");
+                    Chunk chunkNombres = new Chunk("Apellidos y Nombres: " + nombres + "\n");
+                    Chunk chunkDNI = new Chunk("DNI o similar: " + dni + "      Edad: años: " + edad + "        Sexo: " + sexo + "\n");
+                    Chunk chunkEmpresa = new Chunk("Emplesa empleadora: " + empresa + "             Puesto de trabajo: " + puesto + "\n");
+                    Chunk chunkMotivo = new Chunk("Motivo de la vigilancia epidemiológica: " + motivo + "\n\n\n");
+                    Chunk chunkVia = new Chunk("Via de ingreso a la vigilancia médica COVID: " + via + "\n");
+                    Chunk chunkFechaIngreso = new Chunk("Fecha en que ingreso a la vigilancia médica COVID: " + fechaIngreso + "\n\n");
+                    Chunk chunkResultado = new Chunk("Resultado de pruebas para el diagnóstico de COVID-19\n");
+                    Chunk chunkConclusiones = new Chunk("Conclusiones para el alta epidemiológica\n");
+                    Chunk chunkNumeroDias = new Chunk("Número de días de cuarentena / aislamiento: " + numeroDias + "\n\n");
+                    Chunk chunkComentarios = new Chunk("Comentarios para el alta:\n\n" + comentarios + "\n\n");
+                    Chunk chunkMedico = new Chunk("EL MEDICO QUE SUSCRIBE CERTIFICA EL ALTA EPIDEMIOLÓGICA DE LA VIGILANCIA MÉDICA POR CAUSA RELACIONADA A COVID-19 acorde a las recomendaciones técnicas y normativas (RM-193-2020-MINSA y Modificatoria RM-375-2020-MINSA, RM-448-2020-MINSA)");
+
+                    //Chunk chunkFechaInicio = new Chunk("Fecha de inicio del descanso: " + fechaInicio + "\n");
+                    //Chunk chunkFechaFin = new Chunk("Fecha de fin del descanso (inclusive): " + fechaFin + "\n\n");
+
+                    //Chunk chunkFirma = new Chunk(".............................\nDr. Nombre y apellidos\nCMP: nnnnn\nSalusLaboris");
+
+                    Phrase phrase = new Phrase();
+                    phrase.Add(chunkFecha);
+                    phrase.Add(chunkNombres);
+                    phrase.Add(chunkDNI);
+                    phrase.Add(chunkEmpresa);
+                    phrase.Add(chunkMotivo);
+                    phrase.Add(chunkVia);
+                    phrase.Add(chunkFechaIngreso);
+                    phrase.Add(chunkResultado);
+                    phrase.Add(chunkConclusiones);
+                    phrase.Add(chunkNumeroDias);
+                    phrase.Add(chunkComentarios);
+                    phrase.Add(chunkMedico);
+                    
+                    Paragraph paragraph = new Paragraph();                    
+                    paragraph.Add(phrase);
+                    
+
+                    document.Add(paragraph);                    
+                    document.NewPage();
 
                     document.Close();
 
