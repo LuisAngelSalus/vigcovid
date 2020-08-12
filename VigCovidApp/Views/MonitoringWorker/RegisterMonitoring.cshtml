@@ -50,69 +50,69 @@
                                 </h4>
                             </div>
                             <!--Accordion content-->
-                            <div class="panel-collapse collapse" id="demo-acd-info-outline-3" aria-expanded="true">                                
-                                            <div class="row">
-                                                <div class="col-12">
-                                                    <div class="card">
-                                                        <div class="card-body">
-                                                            <section class="cd-horizontal-timeline">
-                                                                <div class="timeline">
-                                                                    <div class="events-wrapper">
-                                                                        <div class="events">
-                                                                            <ol>
-                                                                                @for (int i = 0; i < fechasImportantes.Count; i++)
+                            <div class="panel-collapse collapse" id="demo-acd-info-outline-3" aria-expanded="true">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <section class="cd-horizontal-timeline">
+                                                    <div class="timeline">
+                                                        <div class="events-wrapper">
+                                                            <div class="events">
+                                                                <ol>
+                                                                    @for (int i = 0; i < fechasImportantes.Count; i++)
                                                                                 {
                                                                                     if (i == 0)
                                                                                     {
-                                                                                        <li><a href="#0" data-date="@fechasImportantes[i].DateDate" class="selected">@fechasImportantes[i].DateLine</a></li>
+                                                                    <li><a href="#0" data-date="@fechasImportantes[i].DateDate" class="selected">@fechasImportantes[i].DateLine</a></li>
                                                                                     }
                                                                                     else
                                                                                     {
-                                                                                        <li><a href="#0" data-date="@fechasImportantes[i].DateDate">@fechasImportantes[i].DateLine</a></li>
+                                                                    <li><a href="#0" data-date="@fechasImportantes[i].DateDate">@fechasImportantes[i].DateLine</a></li>
                                                                                     }
                                                                                 }
-                                                                            </ol>
-                                                                            <span class="filling-line" aria-hidden="true"></span>
-                                                                        </div>
-                                                                    </div>
-                                                                    <ul class="cd-timeline-navigation">
-                                                                        <li><a href="#0" class="prev inactive">Prev</a></li>
-                                                                        <li><a href="#0" class="next">Next</a></li>
-                                                                    </ul>
-                                                                </div>
-                                                                <div class="events-content">
-                                                                    <ol>
-                                                                        @for (int i = 0; i < fechasImportantes.Count; i++)
+                                                                </ol>
+                                                                <span class="filling-line" aria-hidden="true"></span>
+                                                            </div>
+                                                        </div>
+                                                        <ul class="cd-timeline-navigation">
+                                                            <li><a href="#0" class="prev inactive">Prev</a></li>
+                                                            <li><a href="#0" class="next">Next</a></li>
+                                                        </ul>
+                                                    </div>
+                                                    <div class="events-content">
+                                                        <ol>
+                                                            @for (int i = 0; i < fechasImportantes.Count; i++)
                                                                         {
                                                                             if (i == 0)
                                                                             {
-                                                                                <li class="selected" data-date="@fechasImportantes[i].DateDate">
-                                                                                    <h5>@fechasImportantes[i].Titulo</h5> 
-                                                                                    <p class="m-t-40">
-                                                                                        @fechasImportantes[i].Comentario
-                                                                                    </p>
-                                                                                </li>
+                                                            <li class="selected" data-date="@fechasImportantes[i].DateDate">
+                                                                <h5>@fechasImportantes[i].Titulo</h5>
+                                                                <p class="m-t-40">
+                                                                    @fechasImportantes[i].Comentario
+                                                                </p>
+                                                            </li>
                                                                             }
                                                                             else
                                                                             {
-                                                                    <li data-date="@fechasImportantes[i].DateDate">
-                                                                        <h5>@fechasImportantes[i].Titulo</h5>
-                                                                        <p class="m-t-40">
-                                                                            @fechasImportantes[i].Comentario
-                                                                        </p>
-                                                                    </li>
+                                                            <li data-date="@fechasImportantes[i].DateDate">
+                                                                <h5>@fechasImportantes[i].Titulo</h5>
+                                                                <p class="m-t-40">
+                                                                    @fechasImportantes[i].Comentario
+                                                                </p>
+                                                            </li>
                                                                             }
                                                                         }
-                                                                    </ol>
-                                                                </div>
-                                                            </section>
-                                                        </div>
+                                                        </ol>
                                                     </div>
-                                                </div>
-                                            </div>                                        
+                                                </section>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div class="panel panel-bordered panel-info">   
+                        <div class="panel panel-bordered panel-info">
                             <!--Accordion title-->
                             <div class="panel-heading">
                                 <h4 class="panel-title">
@@ -175,11 +175,11 @@
                                             <tbody id="tabla-examenes">
                                                 @foreach (var item in @ViewBag.EXAMENES)
                                                 {
-                                                    <tr>
-                                                        <td><a href='#fakelink' class='btn-link'>@item.FechaExamen.ToString("dd/MM/yyyy")</a></td>
-                                                        <td>@item.TipoPrueba</td>
-                                                        <td>@item.Resultado</td>
-                                                    </tr>
+                                                <tr>
+                                                    <td><a href='#fakelink' class='btn-link'>@item.FechaExamen.ToString("dd/MM/yyyy")</a></td>
+                                                    <td>@item.TipoPrueba</td>
+                                                    <td>@item.Resultado</td>
+                                                </tr>
                                                 }
                                             </tbody>
                                         </table>
@@ -201,251 +201,251 @@
                 <!--===================================================-->
                 @foreach (var seguimiento in Model)
                 {
-                    <div class="timeline">
-                        <div class="timeline-entry">
-                            <div class="timeline-stat">
-                                <div class="timeline-icon pos-rel">
-                                    <i class="demo-pli-home icon-3x"></i>
-                                    <div class="cart-no">@seguimiento.NroSeguimiento</div>
-                                </div>
-                                <div class="timeline-time cursor-pointer" onclick="CambiarFecha(@seguimiento.SeguimientoId, @seguimiento.RegistroTrabajadorId)">@seguimiento.Fecha</div>
+                <div class="timeline">
+                    <div class="timeline-entry">
+                        <div class="timeline-stat">
+                            <div class="timeline-icon pos-rel">
+                                <i class="demo-pli-home icon-3x"></i>
+                                <div class="cart-no">@seguimiento.NroSeguimiento</div>
                             </div>
-                            <div class="timeline-label">
-                                <p class="text-bold"><a href="#" class="text-warning">Síntomas</a></p>
-                                <hr class="new-section-xs">
+                            <div class="timeline-time cursor-pointer" onclick="CambiarFecha(@seguimiento.SeguimientoId, @seguimiento.RegistroTrabajadorId)">@seguimiento.Fecha</div>
+                        </div>
+                        <div class="timeline-label">
+                            <p class="text-bold"><a href="#" class="text-warning">Síntomas</a></p>
+                            <hr class="new-section-xs">
 
-                                <div id="panel-checkbox-sintomas-@seguimiento.SeguimientoId" class="panel-sintomas">
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <input id="chk-SensacionFiebre-@seguimiento.SeguimientoId" class="magic-checkbox" type="checkbox" @seguimiento.SensacionFiebre>
-                                            <label for="chk-SensacionFiebre-@seguimiento.SeguimientoId">Sensación de fiebre</label>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <input id="chk-Tos-@seguimiento.SeguimientoId" class="magic-checkbox" type="checkbox" @seguimiento.Tos>
-                                            <label for="chk-Tos-@seguimiento.SeguimientoId">Tos</label>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <input id="chk-DolorGarganta-@seguimiento.SeguimientoId" class="magic-checkbox" type="checkbox" @seguimiento.DolorGarganta>
-                                            <label for="chk-DolorGarganta-@seguimiento.SeguimientoId">Dolor de garganta</label>
-                                        </div>
-
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <input id="chk-DificultadRespiratoria-@seguimiento.SeguimientoId" class="magic-checkbox" type="checkbox" @seguimiento.DificultadRespiratoria>
-                                            <label for="chk-DificultadRespiratoria-@seguimiento.SeguimientoId">Dificultad respiratoria</label>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <input id="chk-CongestionNasal-@seguimiento.SeguimientoId" class="magic-checkbox" type="checkbox" @seguimiento.CongestionNasal>
-                                            <label for="chk-CongestionNasal-@seguimiento.SeguimientoId">Congestion Nasal</label>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <input id="chk-Cefalea-@seguimiento.SeguimientoId" class="magic-checkbox" type="checkbox" @seguimiento.Cefalea>
-                                            <label for="chk-Cefalea-@seguimiento.SeguimientoId">Cefaléa</label>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <input id="chk-DolorMuscular-@seguimiento.SeguimientoId" class="magic-checkbox" type="checkbox" @seguimiento.DolorMuscular>
-                                            <label for="chk-DolorMuscular-@seguimiento.SeguimientoId">Dolor Muscular</label>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <input id="chk-PerdidaOlfato-@seguimiento.SeguimientoId" class="magic-checkbox" type="checkbox" @seguimiento.PerdidaOlfato>
-                                            <label for="chk-PerdidaOlfato-@seguimiento.SeguimientoId">Perdida de Olfato</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            @if (seguimiento.NroSeguimiento == 1)
-                            {
-                                <div class="timeline-label">
-                                    <p class="text-bold"><a href="#" class="text-warning">Factores de riesgo</a></p>
-                                    <hr class="new-section-xs">
-                                    <div id="panel-checkbox-aditional-@seguimiento.SeguimientoId" class="panel-sintomas">
-                                        <div class="row">
-                                            <div class="col-md-4">
-                                                <input id="chk-HipertensionArterial-@seguimiento.SeguimientoId" class="magic-checkbox" type="checkbox" @seguimiento.HipertensionArterial>
-                                                <label for="chk-HipertensionArterial-@seguimiento.SeguimientoId">Hipertensión Arterial</label>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <input id="chk-PulmonarCronica-@seguimiento.SeguimientoId" class="magic-checkbox" type="checkbox" @seguimiento.PulmonarCronica>
-                                                <label for="chk-PulmonarCronica-@seguimiento.SeguimientoId">Enf. Pulmonar Crónica</label>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <input id="chk-AsmaModeradoSevero-@seguimiento.SeguimientoId" class="magic-checkbox" type="checkbox" @seguimiento.AsmaModeradoSevero>
-                                                <label for="chk-AsmaModeradoSevero-@seguimiento.SeguimientoId">Asma Moderado/Sev.</label>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-4">
-                                                <input id="chk-Diabetes-@seguimiento.SeguimientoId" class="magic-checkbox" type="checkbox" @seguimiento.Diabetes>
-                                                <label for="chk-Diabetes-@seguimiento.SeguimientoId">Diabetes</label>
-                                            </div>
-
-                                            <div class="col-md-4">
-                                                <input id="chk-Mayor65-@seguimiento.SeguimientoId" class="magic-checkbox" type="checkbox" @seguimiento.Mayor65>
-                                                <label for="chk-Mayor65-@seguimiento.SeguimientoId">Mayor de 65 años</label>
-                                            </div>
-
-                                            <div class="col-md-4">
-                                                <input id="chk-Cancer-@seguimiento.SeguimientoId" class="magic-checkbox" type="checkbox" @seguimiento.Cancer>
-                                                <label for="chk-Cancer-@seguimiento.SeguimientoId">Cáncer</label>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-4">
-                                                <input id="chk-CardiovascularGrave-@seguimiento.SeguimientoId" class="magic-checkbox" type="checkbox" @seguimiento.CardiovascularGrave>
-                                                <label for="chk-CardiovascularGrave-@seguimiento.SeguimientoId">Enf. Cardio. Grave</label>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <input id="chk-ImcMayor40-@seguimiento.SeguimientoId" class="magic-checkbox" type="checkbox" @seguimiento.ImcMayor40>
-                                                <label for="chk-ImcMayor40-@seguimiento.SeguimientoId">Imc Mayor a 40</label>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <input id="chk-TratInmunosupresor-@seguimiento.SeguimientoId" class="magic-checkbox" type="checkbox" @seguimiento.TratInmunosupresor>
-                                                <label for="chk-TratInmunosupresor-@seguimiento.SeguimientoId">Trat. Inmunosupresor</label>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-4">
-                                                <input id="chk-HipertensionArterialNoControlada-@seguimiento.SeguimientoId" class="magic-checkbox" type="checkbox" @seguimiento.HipertensionArterialNoControlada>
-                                                <label for="chk-HipertensionArterialNoControlada-@seguimiento.SeguimientoId">Hiper.Arte.no Controlada</label>
-
-                                            </div>
-                                            <div class="col-md-4">
-                                                <input id="chk-RenalDialisis-@seguimiento.SeguimientoId" class="magic-checkbox" type="checkbox" @seguimiento.RenalDialisis>
-                                                <label for="chk-RenalDialisis-@seguimiento.SeguimientoId">Enf. Renal Crónica c/Dialisis</label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="timeline-label">
-                                    <p class="text-bold"><a href="#" class="text-warning">Diagnósticos</a></p>
-                                    <hr class="new-section-xs">
-                                    <div class="row">
-                                        <div id="panel-checkbox-Dx-@seguimiento.SeguimientoId" class="panel-sintomas">
-                                            <div class="row col-12">
-                                                <div class="col-md-6">
-                                                    <input id="chk-CasoPositivo-@seguimiento.SeguimientoId" class="magic-checkbox" type="checkbox" @seguimiento.CasoPositivo>
-                                                    <label for="chk-CasoPositivo-@seguimiento.SeguimientoId">Caso positivo para COVID-19 (U07.1)</label>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <input id="chk-CasoSospechoso-@seguimiento.SeguimientoId" class="magic-checkbox" type="checkbox" @seguimiento.CasoSospechoso>
-                                                    <label for="chk-CasoSospechoso-@seguimiento.SeguimientoId">Caso sospechoso de COVID-19 (U07.2)</label>
-                                                </div>
-                                            </div>
-                                            <div class="row col-12">
-                                                <div class="col-md-6">
-                                                    <input id="chk-RinofaringitisAguda-@seguimiento.SeguimientoId" class="magic-checkbox" type="checkbox" @seguimiento.RinofaringitisAguda>
-                                                    <label for="chk-RinofaringitisAguda-@seguimiento.SeguimientoId">Rinofaringitis aguda (J00)</label>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <input id="chk-ContactoEnfermedades-@seguimiento.SeguimientoId" class="magic-checkbox" type="checkbox" @seguimiento.ContactoEnfermedades>
-                                                    <label for="chk-ContactoEnfermedades-@seguimiento.SeguimientoId">Contacto, exposición a enfermedades transmisibles (Z20.8)</label>
-                                                </div>
-                                            </div>
-                                            <div class="row col-12">
-                                                <div class="col-md-6">
-                                                    <input id="chk-Aislamiento-@seguimiento.SeguimientoId" class="magic-checkbox" type="checkbox" @seguimiento.Aislamiento>
-                                                    <label for="chk-Aislamiento-@seguimiento.SeguimientoId">Aislamiento (Z29.0)</label>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <input id="chk-NeumoniaViral-@seguimiento.SeguimientoId" class="magic-checkbox" type="checkbox" @seguimiento.NeumoniaViral>
-                                                    <label for="chk-NeumoniaViral-@seguimiento.SeguimientoId">Neumonía viral (J12)</label>
-                                                </div>
-                                            </div>
-                                            <div class="row col-12">
-                                                <div class="col-md-6">
-                                                    <input id="chk-Otros-@seguimiento.SeguimientoId" class="magic-checkbox" type="checkbox" @seguimiento.Otros>
-                                                    <label for="chk-Otros-@seguimiento.SeguimientoId">Otros</label>
-                                                </div>
-                                                @if (@seguimiento.Otros != "checked")
-                                                {
-                                                    <div class="col-md-6">
-                                                        <input id="txt-Otros-@seguimiento.SeguimientoId" type="text" class="form-control inputChange" name="name" value="" disabled />
-                                                    </div>
-                                                }
-                                                else
-                                                {
-                                                    <div class="col-md-6">
-                                                        <input id="txt-Otros-@seguimiento.SeguimientoId" type="text" class="form-control inputChange" name="name" value="@seguimiento.OtrosComentar" />
-                                                    </div>
-                                                }
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            }
-
-                            <div class="timeline-label">
-                                <p class="text-bold pad-top"><a href="#" class="text-warning">Estado y comentario diario</a></p>
-                                <hr class="new-section-xs">
+                            <div id="panel-checkbox-sintomas-@seguimiento.SeguimientoId" class="panel-sintomas">
                                 <div class="row">
-                                    <div class="col-sm-6">
-                                        <select id="ddl-TipoEstado-@seguimiento.SeguimientoId" class="selectpicker selectTipoEstado" data-width="95%">
-                                            <option value="-1">  </option>
-                                            @if (seguimiento.TipoEstadoId == 1)
-                                            {
-                                                <option value="1" selected>Cuarentena</option>
-                                                <option value="2">Hospitalizado</option>
-                                                <option value="3">Fallecido</option>
-                                                <option value="4">Aislamiento</option>
-                                                <option value="5">Alta Epidemiológica</option>
-                                            }
-                                            else if (seguimiento.TipoEstadoId == 2)
-                                            {
-                                                <option value="1">Cuarentena</option>
-                                                <option value="2" selected>Hospitalizado</option>
-                                                <option value="3">Fallecido</option>
-                                                <option value="4">Aislamiento</option>
-                                                <option value="5">Alta Epidemiológica</option>
-                                            }
-                                            else if (seguimiento.TipoEstadoId == 3)
-                                            {
-                                                <option value="1">Cuarentena</option>
-                                                <option value="2">Hospitalizado</option>
-                                                <option value="3" selected>Fallecido</option>
-                                                <option value="4">Aislamiento</option>
-                                                <option value="5">Alta Epidemiológica</option>
-                                            }
-                                            else if (seguimiento.TipoEstadoId == 4)
-                                            {
-                                                <option value="1">Cuarentena</option>
-                                                <option value="2">Hospitalizado</option>
-                                                <option value="3">Fallecido</option>
-                                                <option value="4" selected>Aislamiento</option>
-                                                <option value="5">Alta Epidemiológica</option>
-                                            }
-                                            else if (seguimiento.TipoEstadoId == 5)
-                                            {
-                                                <option value="1">Cuarentena</option>
-                                                <option value="2">Hospitalizado</option>
-                                                <option value="3">Fallecido</option>
-                                                <option value="4">Aislamiento</option>
-                                                <option value="5" selected>Alta Epidemiológica</option>
-                                            }
-                                            else
-                                            {
-                                                <option value="1">Cuarentena</option>
-                                                <option value="2">Hospitalizado</option>
-                                                <option value="3">Fallecido</option>
-                                                <option value="4">Aislamiento</option>
-                                                <option value="5">Alta Epidemiológica</option>
-                                            }
-
-                                        </select>
+                                    <div class="col-md-4">
+                                        <input id="chk-SensacionFiebre-@seguimiento.SeguimientoId" class="magic-checkbox" type="checkbox" @seguimiento.SensacionFiebre>
+                                        <label for="chk-SensacionFiebre-@seguimiento.SeguimientoId">Sensación de fiebre</label>
                                     </div>
-                                    <div class="col-sm-6">
-                                        <textarea id="txt-Comentario-@seguimiento.SeguimientoId" placeholder="Ingresar comentario" rows="4" class="form-control" data-width="100%">@seguimiento.Comentario</textarea>
+                                    <div class="col-md-4">
+                                        <input id="chk-Tos-@seguimiento.SeguimientoId" class="magic-checkbox" type="checkbox" @seguimiento.Tos>
+                                        <label for="chk-Tos-@seguimiento.SeguimientoId">Tos</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input id="chk-DolorGarganta-@seguimiento.SeguimientoId" class="magic-checkbox" type="checkbox" @seguimiento.DolorGarganta>
+                                        <label for="chk-DolorGarganta-@seguimiento.SeguimientoId">Dolor de garganta</label>
+                                    </div>
+
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <input id="chk-DificultadRespiratoria-@seguimiento.SeguimientoId" class="magic-checkbox" type="checkbox" @seguimiento.DificultadRespiratoria>
+                                        <label for="chk-DificultadRespiratoria-@seguimiento.SeguimientoId">Dificultad respiratoria</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input id="chk-CongestionNasal-@seguimiento.SeguimientoId" class="magic-checkbox" type="checkbox" @seguimiento.CongestionNasal>
+                                        <label for="chk-CongestionNasal-@seguimiento.SeguimientoId">Congestion Nasal</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input id="chk-Cefalea-@seguimiento.SeguimientoId" class="magic-checkbox" type="checkbox" @seguimiento.Cefalea>
+                                        <label for="chk-Cefalea-@seguimiento.SeguimientoId">Cefaléa</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <input id="chk-DolorMuscular-@seguimiento.SeguimientoId" class="magic-checkbox" type="checkbox" @seguimiento.DolorMuscular>
+                                        <label for="chk-DolorMuscular-@seguimiento.SeguimientoId">Dolor Muscular</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input id="chk-PerdidaOlfato-@seguimiento.SeguimientoId" class="magic-checkbox" type="checkbox" @seguimiento.PerdidaOlfato>
+                                        <label for="chk-PerdidaOlfato-@seguimiento.SeguimientoId">Perdida de Olfato</label>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
+                        @if (seguimiento.NroSeguimiento == 1)
+                            {
+                        <div class="timeline-label">
+                            <p class="text-bold"><a href="#" class="text-warning">Factores de riesgo</a></p>
+                            <hr class="new-section-xs">
+                            <div id="panel-checkbox-aditional-@seguimiento.SeguimientoId" class="panel-sintomas">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <input id="chk-HipertensionArterial-@seguimiento.SeguimientoId" class="magic-checkbox" type="checkbox" @seguimiento.HipertensionArterial>
+                                        <label for="chk-HipertensionArterial-@seguimiento.SeguimientoId">Hipertensión Arterial</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input id="chk-PulmonarCronica-@seguimiento.SeguimientoId" class="magic-checkbox" type="checkbox" @seguimiento.PulmonarCronica>
+                                        <label for="chk-PulmonarCronica-@seguimiento.SeguimientoId">Enf. Pulmonar Crónica</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input id="chk-AsmaModeradoSevero-@seguimiento.SeguimientoId" class="magic-checkbox" type="checkbox" @seguimiento.AsmaModeradoSevero>
+                                        <label for="chk-AsmaModeradoSevero-@seguimiento.SeguimientoId">Asma Moderado/Sev.</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <input id="chk-Diabetes-@seguimiento.SeguimientoId" class="magic-checkbox" type="checkbox" @seguimiento.Diabetes>
+                                        <label for="chk-Diabetes-@seguimiento.SeguimientoId">Diabetes</label>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <input id="chk-Mayor65-@seguimiento.SeguimientoId" class="magic-checkbox" type="checkbox" @seguimiento.Mayor65>
+                                        <label for="chk-Mayor65-@seguimiento.SeguimientoId">Mayor de 65 años</label>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <input id="chk-Cancer-@seguimiento.SeguimientoId" class="magic-checkbox" type="checkbox" @seguimiento.Cancer>
+                                        <label for="chk-Cancer-@seguimiento.SeguimientoId">Cáncer</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <input id="chk-CardiovascularGrave-@seguimiento.SeguimientoId" class="magic-checkbox" type="checkbox" @seguimiento.CardiovascularGrave>
+                                        <label for="chk-CardiovascularGrave-@seguimiento.SeguimientoId">Enf. Cardio. Grave</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input id="chk-ImcMayor40-@seguimiento.SeguimientoId" class="magic-checkbox" type="checkbox" @seguimiento.ImcMayor40>
+                                        <label for="chk-ImcMayor40-@seguimiento.SeguimientoId">Imc Mayor a 40</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input id="chk-TratInmunosupresor-@seguimiento.SeguimientoId" class="magic-checkbox" type="checkbox" @seguimiento.TratInmunosupresor>
+                                        <label for="chk-TratInmunosupresor-@seguimiento.SeguimientoId">Trat. Inmunosupresor</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <input id="chk-HipertensionArterialNoControlada-@seguimiento.SeguimientoId" class="magic-checkbox" type="checkbox" @seguimiento.HipertensionArterialNoControlada>
+                                        <label for="chk-HipertensionArterialNoControlada-@seguimiento.SeguimientoId">Hiper.Arte.no Controlada</label>
+
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input id="chk-RenalDialisis-@seguimiento.SeguimientoId" class="magic-checkbox" type="checkbox" @seguimiento.RenalDialisis>
+                                        <label for="chk-RenalDialisis-@seguimiento.SeguimientoId">Enf. Renal Crónica c/Dialisis</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="timeline-label">
+                            <p class="text-bold"><a href="#" class="text-warning">Diagnósticos</a></p>
+                            <hr class="new-section-xs">
+                            <div class="row">
+                                <div id="panel-checkbox-Dx-@seguimiento.SeguimientoId" class="panel-sintomas">
+                                    <div class="row col-12">
+                                        <div class="col-md-6">
+                                            <input id="chk-CasoPositivo-@seguimiento.SeguimientoId" class="magic-checkbox" type="checkbox" @seguimiento.CasoPositivo>
+                                            <label for="chk-CasoPositivo-@seguimiento.SeguimientoId">Caso positivo para COVID-19 (U07.1)</label>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <input id="chk-CasoSospechoso-@seguimiento.SeguimientoId" class="magic-checkbox" type="checkbox" @seguimiento.CasoSospechoso>
+                                            <label for="chk-CasoSospechoso-@seguimiento.SeguimientoId">Caso sospechoso de COVID-19 (U07.2)</label>
+                                        </div>
+                                    </div>
+                                    <div class="row col-12">
+                                        <div class="col-md-6">
+                                            <input id="chk-RinofaringitisAguda-@seguimiento.SeguimientoId" class="magic-checkbox" type="checkbox" @seguimiento.RinofaringitisAguda>
+                                            <label for="chk-RinofaringitisAguda-@seguimiento.SeguimientoId">Rinofaringitis aguda (J00)</label>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <input id="chk-ContactoEnfermedades-@seguimiento.SeguimientoId" class="magic-checkbox" type="checkbox" @seguimiento.ContactoEnfermedades>
+                                            <label for="chk-ContactoEnfermedades-@seguimiento.SeguimientoId">Contacto, exposición a enfermedades transmisibles (Z20.8)</label>
+                                        </div>
+                                    </div>
+                                    <div class="row col-12">
+                                        <div class="col-md-6">
+                                            <input id="chk-Aislamiento-@seguimiento.SeguimientoId" class="magic-checkbox" type="checkbox" @seguimiento.Aislamiento>
+                                            <label for="chk-Aislamiento-@seguimiento.SeguimientoId">Aislamiento (Z29.0)</label>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <input id="chk-NeumoniaViral-@seguimiento.SeguimientoId" class="magic-checkbox" type="checkbox" @seguimiento.NeumoniaViral>
+                                            <label for="chk-NeumoniaViral-@seguimiento.SeguimientoId">Neumonía viral (J12)</label>
+                                        </div>
+                                    </div>
+                                    <div class="row col-12">
+                                        <div class="col-md-6">
+                                            <input id="chk-Otros-@seguimiento.SeguimientoId" class="magic-checkbox" type="checkbox" @seguimiento.Otros>
+                                            <label for="chk-Otros-@seguimiento.SeguimientoId">Otros</label>
+                                        </div>
+                                        @if (@seguimiento.Otros != "checked")
+                                                {
+                                        <div class="col-md-6">
+                                            <input id="txt-Otros-@seguimiento.SeguimientoId" type="text" class="form-control inputChange" name="name" value="" disabled />
+                                        </div>
+                                                }
+                                                else
+                                                {
+                                        <div class="col-md-6">
+                                            <input id="txt-Otros-@seguimiento.SeguimientoId" type="text" class="form-control inputChange" name="name" value="@seguimiento.OtrosComentar" />
+                                        </div>
+                                                }
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                            }
+
+                        <div class="timeline-label">
+                            <p class="text-bold pad-top"><a href="#" class="text-warning">Estado y comentario diario</a></p>
+                            <hr class="new-section-xs">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <select id="ddl-TipoEstado-@seguimiento.SeguimientoId" class="selectpicker selectTipoEstado" data-width="95%">
+                                        <option value="-1">  </option>
+                                        @if (seguimiento.TipoEstadoId == 1)
+                                            {
+                                        <option value="1" selected>Cuarentena</option>
+                                        <option value="2">Hospitalizado</option>
+                                        <option value="3">Fallecido</option>
+                                        <option value="4">Aislamiento</option>
+                                        <option value="5">Alta Epidemiológica</option>
+                                            }
+                                            else if (seguimiento.TipoEstadoId == 2)
+                                            {
+                                        <option value="1">Cuarentena</option>
+                                        <option value="2" selected>Hospitalizado</option>
+                                        <option value="3">Fallecido</option>
+                                        <option value="4">Aislamiento</option>
+                                        <option value="5">Alta Epidemiológica</option>
+                                            }
+                                            else if (seguimiento.TipoEstadoId == 3)
+                                            {
+                                        <option value="1">Cuarentena</option>
+                                        <option value="2">Hospitalizado</option>
+                                        <option value="3" selected>Fallecido</option>
+                                        <option value="4">Aislamiento</option>
+                                        <option value="5">Alta Epidemiológica</option>
+                                            }
+                                            else if (seguimiento.TipoEstadoId == 4)
+                                            {
+                                        <option value="1">Cuarentena</option>
+                                        <option value="2">Hospitalizado</option>
+                                        <option value="3">Fallecido</option>
+                                        <option value="4" selected>Aislamiento</option>
+                                        <option value="5">Alta Epidemiológica</option>
+                                            }
+                                            else if (seguimiento.TipoEstadoId == 5)
+                                            {
+                                        <option value="1">Cuarentena</option>
+                                        <option value="2">Hospitalizado</option>
+                                        <option value="3">Fallecido</option>
+                                        <option value="4">Aislamiento</option>
+                                        <option value="5" selected>Alta Epidemiológica</option>
+                                            }
+                                            else
+                                            {
+                                        <option value="1">Cuarentena</option>
+                                        <option value="2">Hospitalizado</option>
+                                        <option value="3">Fallecido</option>
+                                        <option value="4">Aislamiento</option>
+                                        <option value="5">Alta Epidemiológica</option>
+                                            }
+
+                                    </select>
+                                </div>
+                                <div class="col-sm-6">
+                                    <textarea id="txt-Comentario-@seguimiento.SeguimientoId" placeholder="Ingresar comentario" rows="4" class="form-control" data-width="100%">@seguimiento.Comentario</textarea>
+                                </div>
+                            </div>
+                        </div>
                     </div>
+
+                </div>
                 }
                 <!--===================================================-->
                 <!-- End Timeline -->
@@ -662,6 +662,7 @@
         $(".panel-body").on("change", ".selectTipoEstado", function (e) {
             let ddlCalificacionId = $(e.target).attr("id");
             let value = $("#" + ddlCalificacionId).val();
+            let registroTrabajadorId = $("#txtRegistroTrabajadoId").val();
             if (value == 5) {
                 bootbox.confirm({
                     message: "¿Está seguro de dar de ALTA?",
@@ -683,7 +684,7 @@
                             //Actualizar Estado Clinico de trabajador
                             UpdateEstadoClinico();
                             //GENERAR FICHA ALTA...
-                            viewAltaMedica();
+                            viewAltaMedica(registroTrabajadorId);
                         }
 
                     }
@@ -939,8 +940,8 @@
 
     }
 
-    function viewAltaMedica() {
-        window.location.href = '/MonitoringWorker/ExportAltaMedica';
+    function viewAltaMedica(idTrabajador) {
+        window.location.href = "/MonitoringWorker/ExportAltaMedica?id=" + idTrabajador;
     }
 
 </script>
