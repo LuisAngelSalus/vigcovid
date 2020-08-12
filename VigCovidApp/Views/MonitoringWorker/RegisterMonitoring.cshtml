@@ -46,103 +46,88 @@
                             <!--Accordion title-->
                             <div class="panel-heading">
                                 <h4 class="panel-title">
-                                    <a data-parent="#demo-acc-info-outline" data-toggle="collapse" href="#demo-acd-info-outline-3" class="collapsed" aria-expanded="true">Fechas importantes</a>
+                                    <a data-parent="#demo-acc-info-outline" data-toggle="collapse" href="#demo-acd-info-outline-3" class="collapsed" aria-expanded="true">Línea de tiempo</a>
                                 </h4>
                             </div>
                             <!--Accordion content-->
                             <div class="panel-collapse collapse" id="demo-acd-info-outline-3" aria-expanded="true">                                
-                                            <div class="row">
-                                                <div class="col-12">
-                                                    <div class="card">
-                                                        <div class="card-body">
-                                                            <section class="cd-horizontal-timeline">
-                                                                <div class="timeline">
-                                                                    <div class="events-wrapper">
-                                                                        <div class="events">
-                                                                            <ol>
-                                                                                @for (int i = 0; i < fechasImportantes.Count; i++)
-                                                                                {
-                                                                                    if (i == 0)
-                                                                                    {
-                                                                                        <li><a href="#0" data-date="@fechasImportantes[i].DateDate" class="selected">@fechasImportantes[i].DateLine</a></li>
-                                                                                    }
-                                                                                    else
-                                                                                    {
-                                                                                        <li><a href="#0" data-date="@fechasImportantes[i].DateDate">@fechasImportantes[i].DateLine</a></li>
-                                                                                    }
-                                                                                }
-                                                                            </ol>
-                                                                            <span class="filling-line" aria-hidden="true"></span>
-                                                                        </div>
-                                                                    </div>
-                                                                    <ul class="cd-timeline-navigation">
-                                                                        <li><a href="#0" class="prev inactive">Prev</a></li>
-                                                                        <li><a href="#0" class="next">Next</a></li>
-                                                                    </ul>
-                                                                </div>
-                                                                <div class="events-content">
-                                                                    <ol>
-                                                                        @for (int i = 0; i < fechasImportantes.Count; i++)
+                                
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <section class="cd-horizontal-timeline">
+                                                    <div class="timeline">
+                                                        <div class="events-wrapper">
+                                                            <div class="events">
+                                                                <ol>
+                                                                    @for (int i = 0; i < fechasImportantes.Count; i++)
+                                                                    {
+                                                                        if (i == 0)
                                                                         {
-                                                                            if (i == 0)
-                                                                            {
-                                                                                <li class="selected" data-date="@fechasImportantes[i].DateDate">
-                                                                                    <h5>@fechasImportantes[i].Titulo</h5> 
-                                                                                    <p class="m-t-40">
-                                                                                        @fechasImportantes[i].Comentario
-                                                                                    </p>
-                                                                                </li>
-                                                                            }
-                                                                            else
-                                                                            {
-                                                                    <li data-date="@fechasImportantes[i].DateDate">
-                                                                        <h5>@fechasImportantes[i].Titulo</h5>
-                                                                        <p class="m-t-40">
-                                                                            @fechasImportantes[i].Comentario
-                                                                        </p>
-                                                                    </li>
-                                                                            }
+                                                                            <li><a href="#0" data-date="@fechasImportantes[i].DateDate" class="selected">@fechasImportantes[i].DateLine</a></li>
                                                                         }
-                                                                    </ol>
-                                                                </div>
-                                                            </section>
+                                                                        else
+                                                                        {
+                                                                            <li><a href="#0" data-date="@fechasImportantes[i].DateDate">@fechasImportantes[i].DateLine</a></li>
+                                                                        }
+                                                                    }
+                                                                </ol>
+                                                                <span class="filling-line" aria-hidden="true"></span>
+                                                            </div>
                                                         </div>
+                                                        <ul class="cd-timeline-navigation">
+                                                            <li><a href="#0" class="prev inactive">Prev</a></li>
+                                                            <li><a href="#0" class="next">Next</a></li>
+                                                        </ul>
                                                     </div>
-                                                </div>
-                                            </div>                                        
+                                                </section>
+                                            </div>
+                                        </div>
+                                                                     
                             </div>
                         </div>
                         <div class="panel panel-bordered panel-info">   
                             <!--Accordion title-->
                             <div class="panel-heading">
                                 <h4 class="panel-title">
-                                    <a data-parent="#demo-acc-info-outline" data-toggle="collapse" href="#demo-acd-info-outline-2" class="collapsed" aria-expanded="false">Indicadores</a>
+                                    <a data-parent="#demo-acc-info-outline" data-toggle="collapse" href="#demo-acd-info-outline-2" class="collapsed" aria-expanded="false">Fechas importantes</a>
                                 </h4>
                             </div>
                             <!--Accordion content-->
                             <div class="panel-collapse collapse" id="demo-acd-info-outline-2" aria-expanded="false">
                                 <div class="panel-body">
-                                    <div class="list-group bg-trans mar-no">
-                                        <div class="col-sm-4">
-                                            <a class="list-group-item list-item-sm" href="#">
-                                                <span class="label label-primary pull-right">@ViewBag.INDICADORES.FechaRegistro</span>
-                                                Fecha Inicio:
-                                            </a>
-                                        </div>
-                                        <div class="col-sm-4">
-                                            <a class="list-group-item list-item-sm" href="#">
-                                                <span class="label label-success pull-right">@ViewBag.INDICADORES.DiasEnSeguimiento</span>
-                                                Días en seguimiento:
-                                            </a>
-                                        </div>
-                                        <div class="col-sm-4">
+                                    <table class="table table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>Descripción</th>
+                                                <th>Fecha</th>
+                                                <th>Días</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="tabla-fechas-importantes">
+                                            <tr>
+                                                <td>Inicio Aislamiento/Cuarentena</td>
+                                                <td><input type="text" class="form-control" id="dtpFechaAislaminetoCuarentena"></td>
+                                                <td>5</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Inicio de Síntomas</td>
+                                                <td><input type="text" class="form-control" id="dtpFechaInicioSintomas"></td>
+                                                <td>5</td>
+                                            </tr>
 
-                                            <a class="list-group-item list-item-sm" href="#">
-                                                <span class="label label-danger pull-right">@ViewBag.INDICADORES.FechaInicioSintomas</span>
-                                                Fecha inicio síntomas:
-                                            </a>
-                                        </div>
-                                    </div>
+                                            <tr>
+                                                <td>Fin de Síntomas</td>
+                                                <td><input type="text" class="form-control" id="dtpFechaFinSintomas"></td>
+                                                <td>-</td>
+                                            </tr>
+
+                                            <tr>
+                                                <td>Posible Alta</td>
+                                                <td><input type="text" class="form-control" id="dtpFechaPosibleAlta"></td>
+                                                <td>12</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         </div>
@@ -859,6 +844,12 @@
     $(document).on('nifty.ready', function () {
         $('#FechaInicioSintomas .input-group.date').datepicker({ autoclose: true, format: 'dd/mm/yyyy' });
         $("#dtpFechaExamen").datepicker({ autoclose: true, format: 'dd/mm/yyyy' })
+
+        $("#dtpFechaAislaminetoCuarentena").datepicker({ autoclose: true, format: 'dd/mm/yyyy' })
+        $("#dtpFechaInicioSintomas").datepicker({ autoclose: true, format: 'dd/mm/yyyy' })
+        $("#dtpFechaFinSintomas").datepicker({ autoclose: true, format: 'dd/mm/yyyy' })
+        $("#dtpFechaPosibleAlta").datepicker({ autoclose: true, format: 'dd/mm/yyyy' })
+
         var faIcon = {
             valid: 'fa fa-check-circle fa-lg text-success',
             invalid: 'fa fa-times-circle fa-lg',
@@ -898,7 +889,6 @@
                         url: "/MonitoringWorker/UpdateFechaSeguimiento",
                         data: datos,
                         success: function (data) {
-                            console.log("DATA", data);
                             if (data == "") {
                                 alert("Conflicto de fechas");
                             }
@@ -925,7 +915,6 @@
     }
 
     function DisableControlInputOtros(id) {
-        console.log("SSS", $("#chk-Otros-" + id).val());
         if ($("#chk-Otros-" + id).val() == undefined) return;
 
         var val = $("#chk-Otros-" + id).get(0).checked;

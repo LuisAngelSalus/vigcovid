@@ -150,6 +150,7 @@
     <Compile Include="Models\Empresas.cs" />
     <Compile Include="Models\Enums.cs" />
     <Compile Include="Models\Examen.cs" />
+    <Compile Include="Models\FechaImportante.cs" />
     <Compile Include="Models\Seguimiento.cs" />
     <Compile Include="Models\SessionModel.cs" />
     <Compile Include="Models\Usuarios.cs" />

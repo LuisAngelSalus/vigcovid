@@ -81,6 +81,8 @@ namespace VigCovidApp.Controllers
             var fechas = new List<FechaImportanteViewModels>();
 
             var InicioSeguimiento = (from A in db.Seguimiento where A.NroSeguimiento == 1 && A.RegistroTrabajadorId == trabajadorId select A).FirstOrDefault();
+            if (InicioSeguimiento == null) return new List<FechaImportanteViewModels>();
+
             #region Fecha incio seguimiento
             var oInicioSeguimiento = new FechaImportanteViewModels();
             oInicioSeguimiento.Fecha = InicioSeguimiento.Fecha;
@@ -278,6 +280,22 @@ namespace VigCovidApp.Controllers
             opcionesCalificacion.Add(new SelectListItem { Text = "Sintomático Moderado", Value = "3" });
 
             return opcionesCalificacion;
+        }
+
+        [HttpPost]
+        public void SaveFecgaImportante(List<FechaImportante> oFechaImportantes)
+        {
+            try
+            {
+                var fechas = db.FechaImportante.Where(s => s.TrabajadorId == oFechaImportantes[0].TrabajadorId).ToList();
+                db.FechaImportante.RemoveRange(fechas);
+
+               
+            }
+            catch (Exception ex)
+            {
+
+            }
         }
 
         #region Private Methodos 
