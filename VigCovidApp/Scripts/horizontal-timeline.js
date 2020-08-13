@@ -1,4 +1,5 @@
-jQuery(document).ready(function($){
+jQuery(document).ready(function ($) {
+	
 	var timelines = $('.cd-horizontal-timeline'),
 		eventsMinDistance = 60;
 
@@ -232,10 +233,8 @@ jQuery(document).ready(function($){
 	function minLapse(dates) {
 		//determine the minimum distance among events
 		var dateDistances = [];
-		console.log("AA", dates);
 		for (i = 1; i < dates.length; i++) { 
 
-			console.log("BB", dates.length[i]);
 		    var distance = daydiff(dates[i-1], dates[i]);
 		    dateDistances.push(distance);
 		}

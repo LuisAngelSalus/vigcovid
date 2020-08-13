@@ -11,6 +11,7 @@ using System.Web.UI;
 using VigCovid.Common.AccessData;
 using VigCovid.Common.BE;
 using VigCovid.Common.Resource;
+using VigCovid.MedicalMonitoring.BL;
 using VigCovidApp.Controllers.Base;
 using VigCovidApp.Models;
 using VigCovidApp.Utils.Export;
@@ -30,7 +31,7 @@ namespace VigCovidApp.Controllers
 
             ViewBag.INDICADORES = GetIndicadores(id);
 
-            ViewBag.FECHASIMPORTANTES = GetFechasImportantes_(id);
+            ViewBag.FECHASIMPORTANTES = GetFechasImportantes(id);
 
             ViewBag.EXAMENES = ListarExamenesTrabajador(id);
 
@@ -40,94 +41,18 @@ namespace VigCovidApp.Controllers
             return View(seguimientos);
         }
 
-        public JsonResult GetFechasImportantes(int trabajadorId)
+        public JsonResult GetFechasImportantesJson(int trabajadorId)
         {
-            var fechas = new List<FechaImportanteViewModels>();
+            var oLineaTiempoBL = new LineaTiempoBL();
+            var result = oLineaTiempoBL.GetAllFechasLineaTiempo(trabajadorId);
 
-            var InicioSeguimiento = (from A in db.Seguimiento where A.NroSeguimiento == 1 && A.RegistroTrabajadorId == trabajadorId select A).FirstOrDefault();
-            #region Fecha incio seguimiento
-            var oInicioSeguimiento = new FechaImportanteViewModels();
-            oInicioSeguimiento.Fecha = InicioSeguimiento.Fecha;
-            oInicioSeguimiento.DateDate = InicioSeguimiento.Fecha.ToString("dd/MM/yyyy");
-            oInicioSeguimiento.Titulo = "Inicio Seguimiento";
-            oInicioSeguimiento.Comentario = InicioSeguimiento.Comentario;
-
-            fechas.Add(oInicioSeguimiento);
-            #endregion|
-
-            #region Fecha incio síntomas
-            var oInicioSintomas = new FechaImportanteViewModels();
-            oInicioSintomas.Fecha = InicioSeguimiento.Fecha;
-            oInicioSintomas.DateDate = InicioSeguimiento.Fecha.ToString("dd/MM/yyyy");
-            oInicioSintomas.Titulo = "Inicio Síntomas";
-            oInicioSintomas.Comentario = InicioSeguimiento.Comentario;
-
-            fechas.Add(oInicioSintomas);
-            #endregion|
-
-            #region Fecha Exámenes
-
-            var examenes = (from A in db.Examen where A.TrabajadorId == trabajadorId select A).ToList();
-
-            foreach (var item in examenes)
-            {
-                fechas.Add(new FechaImportanteViewModels { Fecha = item.Fecha, DateDate = item.Fecha.ToString("dd/MM/yyyy"), Titulo = item.TipoPrueba.ToString(), Comentario = item.Resultado.ToString() });
-            }
-            #endregion
-            fechas.Sort((x, y) => x.Fecha.CompareTo(y.Fecha));
-
-            return Json(fechas, "application/json", Encoding.UTF8, JsonRequestBehavior.AllowGet);
+            return Json(result, "application/json", Encoding.UTF8, JsonRequestBehavior.AllowGet);
         }
 
-        public List<FechaImportanteViewModels> GetFechasImportantes_(int trabajadorId)
+        public List<LineaTiempo> GetFechasImportantes(int trabajadorId)
         {
-            var fechas = new List<FechaImportanteViewModels>();
-
-            var InicioSeguimiento = (from A in db.Seguimiento where A.NroSeguimiento == 1 && A.RegistroTrabajadorId == trabajadorId select A).FirstOrDefault();
-            if (InicioSeguimiento == null) return new List<FechaImportanteViewModels>();
-
-            #region Fecha incio seguimiento
-            var oInicioSeguimiento = new FechaImportanteViewModels();
-            oInicioSeguimiento.Fecha = InicioSeguimiento.Fecha;
-            oInicioSeguimiento.DateLine = InicioSeguimiento.Fecha.ToString("dd/MMM");
-            oInicioSeguimiento.DateDate = InicioSeguimiento.Fecha.ToString("dd/MM/yyyy");
-            oInicioSeguimiento.Titulo = "Inicio Seguimiento";
-            oInicioSeguimiento.Comentario = InicioSeguimiento.Comentario;
-
-            fechas.Add(oInicioSeguimiento);
-            #endregion|
-
-            #region Fecha incio síntomas
-            var oInicioSintomas = new FechaImportanteViewModels();
-            oInicioSintomas.Fecha = InicioSeguimiento.Fecha;
-            oInicioSintomas.DateDate = InicioSeguimiento.Fecha.ToString("dd/MM/yyyy");
-            oInicioSintomas.Titulo = "Inicio Síntomas";
-            oInicioSintomas.Comentario = InicioSeguimiento.Comentario;
-
-            fechas.Add(oInicioSintomas);
-            #endregion|
-
-            #region Fecha Exámenes
-
-            var examenes = (from A in db.Examen where A.TrabajadorId == trabajadorId select A).ToList();
-
-            foreach (var item in examenes)
-            {
-                fechas.Add(new FechaImportanteViewModels { Fecha = item.Fecha, DateLine = item.Fecha.ToString("dd/MMM"), DateDate = item.Fecha.ToString("dd/MM/yyyy"), Titulo = item.TipoPrueba == 1 ? "Prueba Rápida" : "Examen Molecular", Comentario = ObtenerResultado(item.Resultado) });
-            }
-            #endregion
-            fechas.Sort((x, y) => x.Fecha.CompareTo(y.Fecha));
-
-            var result = fechas.GroupBy(g => g.Fecha)
-                .Select(s => new FechaImportanteViewModels
-                {
-                    Fecha = s.Key,
-                    DateLine = s.Select(ss => ss.DateLine).FirstOrDefault(),
-                    DateDate = s.Select(ss => ss.DateDate).FirstOrDefault(),
-                    Titulo = string.Join("-", s.Select(ss => ss.Titulo)),
-                    Comentario = string.Join("-", s.Select(ss => ss.Comentario)),
-                }).ToList();
-            return result;
+            var oLineaTiempoBL = new LineaTiempoBL();
+            return oLineaTiempoBL.GetAllFechasLineaTiempo(trabajadorId);          
         }
 
         [HttpGet]
@@ -168,6 +93,21 @@ namespace VigCovidApp.Controllers
                 #endregion
 
                 return null;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
+        public JsonResult ListarFechasImportabtes(int idTrabajador)
+        {
+            try
+            {
+                var oFechaImportanteBL = new FechaImportanteBL();
+                var result = oFechaImportanteBL.GetAllFechasImportantes(idTrabajador);
+
+                return Json(result, "application/json", Encoding.UTF8, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
@@ -298,6 +238,22 @@ namespace VigCovidApp.Controllers
             catch (Exception ex)
             {
 
+            }
+        }
+
+        [HttpPost]
+        public JsonResult SaveFechaImportante(FechaImportante entidad)
+        {
+            try
+            {
+                var oFechaImportanteBL = new FechaImportanteBL();
+                var result = oFechaImportanteBL.SaveFechaImportante(entidad);
+
+                return Json(result, "application/json", Encoding.UTF8, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                throw;
             }
         }
 

@@ -2,7 +2,7 @@
 
 @{
     ViewBag.Title = "Seguimiento Trabajador";
-
+    var trabajadorId = Model.ToList()[0].RegistroTrabajadorId;
     var fechasImportantes = @ViewBag.FECHASIMPORTANTES;
 }
 <style>
@@ -56,8 +56,8 @@
                                                 <section class="cd-horizontal-timeline">
                                                     <div class="timeline">
                                                         <div class="events-wrapper">
-                                                            <div class="events">
-                                                                <ol>
+                                                            <div class="events ">
+                                                                <ol id="linea-tiempo">
                                                                     @for (int i = 0; i < fechasImportantes.Count; i++)
                                                                     {
                                                                         if (i == 0)
@@ -105,25 +105,25 @@
                                         <tbody id="tabla-fechas-importantes">
                                             <tr>
                                                 <td>Inicio Aislamiento/Cuarentena</td>
-                                                <td><input type="text" class="form-control" id="dtpFechaAislaminetoCuarentena"></td>
-                                                <td>5</td>
+                                                <td><input type="text" class="form-control fechas" id="dtp-FechaAislaminetoCuarentena-@trabajadorId"></td>
+                                                <td></td>
                                             </tr>
                                             <tr>
                                                 <td>Inicio de Síntomas</td>
-                                                <td><input type="text" class="form-control" id="dtpFechaInicioSintomas"></td>
-                                                <td>5</td>
+                                                <td><input type="text" class="form-control fechas" id="dtp-FechaInicioSintomas-@trabajadorId"></td>
+                                                <td></td>
                                             </tr>
 
                                             <tr>
                                                 <td>Fin de Síntomas</td>
-                                                <td><input type="text" class="form-control" id="dtpFechaFinSintomas"></td>
-                                                <td>-</td>
+                                                <td><input type="text" class="form-control fechas" id="dtp-FechaFinSintomas-@trabajadorId"></td>
+                                                <td></td>
                                             </tr>
 
                                             <tr>
                                                 <td>Posible Alta</td>
-                                                <td><input type="text" class="form-control" id="dtpFechaPosibleAlta"></td>
-                                                <td>12</td>
+                                                <td><input type="text" class="form-control fechas" id="dtp-FechaPosibleAlta-@trabajadorId"></td>
+                                                <td></td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -526,6 +526,8 @@
 
     $(document).ready(function () {
 
+        ListarFechasImportantes();
+
         $('#txtFechaExamen').datepicker({ autoclose: true });
 
         $("#btn-AgregarSeguimiento").on("click", function () {
@@ -643,6 +645,19 @@
             SaveChange(id);
         });
 
+        $(".panel-body").on("change", ".fechas", function (e) {
+            let fechaImportante = $($(e.target).get(0)).attr("id");
+            let fechaNombre = fechaImportante.split('-')[1];
+            let id = fechaImportante.split('-')[2];
+            let fecha = $(this).val();
+            let registroTrabajadorId = $("#txtRegistroTrabajadoId").val();
+            SaveFechaImportante(fechaNombre, fecha, registroTrabajadorId);
+            CalcularDias("#"+fechaImportante, fecha);
+            notificarCambio("Fecha " + fechaNombre);
+            
+
+        });
+
         $(".panel-body").on("change", ".selectTipoEstado", function (e) {
             let ddlCalificacionId = $(e.target).attr("id");
             let value = $("#" + ddlCalificacionId).val();
@@ -685,16 +700,6 @@
             window.location = "/Home/index";
         });
 
-        //function ExportarPDF() {
-        //    $.ajax({
-        //        url: virtualDirectory + '/Indicadores/Actividad/ExportToPDF',
-        //        type: "GET",
-        //        contentType: "application/json; charset=utf-8",
-        //        data: input,
-        //        dataType: "json",
-        //    })
-        //}
-
         function notificarCambio(campo) {
             $.niftyNoty({
                 type: 'info',
@@ -702,6 +707,22 @@
                 message: 'Se  modificó ' + campo,
                 container: 'floating',
                 timer: 1000
+            });
+        }
+
+        function SaveFechaImportante(fechaNombre, fecha, registroTrabajadorId){
+
+            var datos = { "TrabajadorId": registroTrabajadorId, "Descripcion": fechaNombre, "Fecha": fecha };
+            $.ajax({
+                type: "POST",
+                url: "/MonitoringWorker/SaveFechaImportante",
+                data: datos,
+                success: function (data) {
+                    ActualizarLineaTiempo();
+                },
+                error: function (jqXHR, exception) {
+                    alert("Ocurrió un error en la operación")
+                }
             });
         }
 
@@ -840,16 +861,97 @@
             }
         }
 
+        function CalcularDias(idControl, fecha) {
+            let fechaActual = moment(Date.now()).format("DD/MM/yyyy");
+            let dias = restaFechas(fecha, fechaActual );
+            if (dias < 0) {
+                dias = dias * (-1)
+            }
+            $(idControl).parent().next('td').html(dias);
+        }
+
+        function ListarFechasImportantes() {
+            let registroTrabajadorId = $("#txtRegistroTrabajadoId").val();
+            $.ajax({
+                type: "GET",
+                url: "/MonitoringWorker/ListarFechasImportabtes?idTrabajador=" + registroTrabajadorId,
+                success: function (data) {
+                    for (var i = 0; i < data.length; i++) {
+                        if (data[i].Descripcion == 'FechaFinSintomas') {
+                            let idControl = $("#dtp-FechaFinSintomas-" + registroTrabajadorId);
+                            CalcularDias(idControl, moment(data[i].Fecha).format("DD/MM/yyyy"));
+                            idControl.val(moment(data[i].Fecha).format("DD/MM/yyyy"));
+                        } else if (data[i].Descripcion == 'FechaInicioSintomas') {
+                            let idControl = $("#dtp-FechaInicioSintomas-" + registroTrabajadorId);
+                            CalcularDias(idControl, moment(data[i].Fecha).format("DD/MM/yyyy"));
+                            idControl.val(moment(data[i].Fecha).format("DD/MM/yyyy"));
+                        } else if (data[i].Descripcion == 'FechaAislaminetoCuarentena') {
+                            let idControl = $("#dtp-FechaAislaminetoCuarentena-" + registroTrabajadorId);
+                            CalcularDias(idControl, moment(data[i].Fecha).format("DD/MM/yyyy"));
+                            idControl.val(moment(data[i].Fecha).format("DD/MM/yyyy"));
+                        } else if (data[i].Descripcion == 'FechaPosibleAlta') {
+                            let idControl = $("#dtp-FechaPosibleAlta-" + registroTrabajadorId);
+                            CalcularDias(idControl, moment(data[i].Fecha).format("DD/MM/yyyy"));
+                            idControl.val(moment(data[i].Fecha).format("DD/MM/yyyy"));
+                        }
+                    }
+                },
+                error: function (jqXHR, exception) {
+                    alert("Ocurrió un error en la operación")
+                }
+            });
+        }
+
+        function ActualizarLineaTiempo() {
+            let registroTrabajadorId = $("#txtRegistroTrabajadoId").val();
+
+            $.ajax({
+                type: "GET",
+                url: "/MonitoringWorker/GetFechasImportantesJson?trabajadorId=" + registroTrabajadorId,
+                success: function (data) {
+                    $(".cd-horizontal-timeline").empty();
+                    var content = "";
+
+                    content += "<div class='timeline'>";
+                    content += "<div class='events-wrapper'>";
+                    content += "<div class='events '>";
+                    content += "<ol id='linea-tiempo'>";
+                    for (var i = 0; i < data.length; i++) {
+                        if (i == 0) {
+                            content += "<li><a href='#0' data-date='" + moment(data[i].Fecha).format("DD/MM/yyyy") + "' class='selected'>" + data[i].DateLine + "</a></li>";
+                        } else {
+                            content += "<li><a href='#0' data-date='" + moment(data[i].Fecha).format("DD/MM/yyyy") + "'>" + data[i].DateLine + "</a></li>";
+                        }
+                    }
+                    content += "</ol>";
+                    content += "<span class='filling-line' aria-hidden='true'></span>";
+                    content += "</div>";
+                    content += "</div>";
+                    content += "<ul class='cd-timeline-navigation'>";
+                    content += "<li><a href='#0' class='prev inactive'>Prev</a></li>";
+                    content += "<li><a href='#0' class='next'>Next</a></li>";
+                    content += "</ul>";
+                    content += "</div>";
+                    
+
+                 
+                    $(".cd-horizontal-timeline").append(content);
+
+                    initTimeline($(".cd-horizontal-timeline"));
+                },
+                error: function (jqXHR, exception) {
+                    alert("Ocurrió un error en la operación")
+                }
+            });
+        }
+
     });
 
     $(document).on('nifty.ready', function () {
         $('#FechaInicioSintomas .input-group.date').datepicker({ autoclose: true, format: 'dd/mm/yyyy' });
         $("#dtpFechaExamen").datepicker({ autoclose: true, format: 'dd/mm/yyyy' })
 
-        $("#dtpFechaAislaminetoCuarentena").datepicker({ autoclose: true, format: 'dd/mm/yyyy' })
-        $("#dtpFechaInicioSintomas").datepicker({ autoclose: true, format: 'dd/mm/yyyy' })
-        $("#dtpFechaFinSintomas").datepicker({ autoclose: true, format: 'dd/mm/yyyy' })
-        $("#dtpFechaPosibleAlta").datepicker({ autoclose: true, format: 'dd/mm/yyyy' })
+        $(".fechas").datepicker({ autoclose: true, format: 'dd/mm/yyyy' });
 
         var faIcon = {
             valid: 'fa fa-check-circle fa-lg text-success',
