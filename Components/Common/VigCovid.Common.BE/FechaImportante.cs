@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
-using System.Web;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace VigCovidApp.Models
+namespace VigCovid.Common.BE
 {
+    [Table("FechaImportante")]
     public class FechaImportante
     {
         public int FechaImportanteId { get; set; }

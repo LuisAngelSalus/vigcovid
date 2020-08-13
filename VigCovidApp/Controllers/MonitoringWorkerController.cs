@@ -8,11 +8,14 @@ using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.UI;
+using VigCovid.Common.AccessData;
+using VigCovid.Common.BE;
+using VigCovid.Common.Resource;
 using VigCovidApp.Controllers.Base;
 using VigCovidApp.Models;
 using VigCovidApp.Utils.Export;
 using VigCovidApp.ViewModels;
-using static VigCovidApp.Models.Enums;
+using static VigCovid.Common.Resource.Enums;
 
 namespace VigCovidApp.Controllers
 {
@@ -389,7 +392,7 @@ namespace VigCovidApp.Controllers
             var datosRegistro = db.RegistroTrabajador.Where(w => w.Id == registroTrabajadorId).FirstOrDefault();
 
             result.Trabajador = datosRegistro.ApePaterno + " " + datosRegistro.ApeMaterno + ", " + datosRegistro.NombreCompleto;
-            result.Empresa = GetEmpresa(datosRegistro.EmpresaCodigo);
+            result.Empresa = GetEmpresa(datosRegistro.EmpresaCodigo.Value);
             result.Celular = datosRegistro.Celular;
             result.Email = datosRegistro.Email;
             result.Edad = datosRegistro.Edad;

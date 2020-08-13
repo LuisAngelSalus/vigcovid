@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
-using System.Web;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace VigCovidApp.Models
+namespace VigCovid.Common.BE
 {
     [Table("Seguimiento")]
-    public class Seguimiento
+   public class Seguimiento
     {
         public int Id { get; set; }
         public int RegistroTrabajadorId { get; set; }
@@ -22,7 +23,7 @@ namespace VigCovidApp.Models
         public bool? Cefalea { get; set; }
         public bool? DolorMuscular { get; set; }
         public bool? PerdidaOlfato { get; set; }
-        public string Comentario { get; set; }        
+        public string Comentario { get; set; }
         public int? TipoEstadoId { get; set; }
         public RegistroTrabajador RegistroTrabajador { get; set; }
         public int NroSeguimiento { get; set; }
@@ -46,6 +47,5 @@ namespace VigCovidApp.Models
         public bool? Aislamiento { get; set; }
         public bool? Otros { get; set; }
         public string OtrosComentar { get; set; }
-
     }
 }

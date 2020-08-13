@@ -1,15 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace VigCovidApp.Models
+namespace VigCovid.Common.Resource
 {
     public class Enums
     {
-      public enum ModoIngreso
+        public enum ModoIngreso
         {
-            Sintomatico =1,
+            Sintomatico = 1,
             Sospechoso = 2,
             ContactoDirecto = 3,
             AsintomaticoPositivo = 4,
@@ -22,7 +23,7 @@ namespace VigCovidApp.Models
             Tamizaje = 1,
             Garita = 2,
             AreaTrabajo = 3,
-            Domicilio = 4            
+            Domicilio = 4
         }
 
         public enum CodigoEmpresa
@@ -34,17 +35,17 @@ namespace VigCovidApp.Models
 
         public enum ResultadoCovid19
         {
-            Negativo  = 0,
+            Negativo = 0,
             Novalido = 1,
-            IgMPositivo =2,
-            IgGPositivo =3,
+            IgMPositivo = 2,
+            IgGPositivo = 3,
             IgMeIgGpositivo = 4,
-            Noserealizo = 5            
+            Noserealizo = 5
         }
 
         public enum EstadoClinico
         {
-            alta =1
+            alta = 1
         }
 
         public enum TipoEstado

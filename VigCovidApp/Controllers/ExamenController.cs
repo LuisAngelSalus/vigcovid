@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using VigCovid.Common.AccessData;
+using VigCovid.Common.BE;
 using VigCovidApp.Models;
 using VigCovidApp.ViewModels;
 

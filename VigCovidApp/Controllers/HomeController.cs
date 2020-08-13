@@ -3,10 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using VigCovid.Common.AccessData;
+using VigCovid.Common.BE;
+using VigCovid.Worker.BL;
 using VigCovidApp.Controllers.Base;
 using VigCovidApp.Models;
 using VigCovidApp.ViewModels;
-using static VigCovidApp.Models.Enums;
+using static VigCovid.Common.Resource.Enums;
 
 namespace VigCovidApp.Controllers
 {
@@ -35,9 +38,8 @@ namespace VigCovidApp.Controllers
         {
             try
             {
-                registrarTrabajador.FechaIngreso = DateTime.Now.Date;
-                db.RegistroTrabajador.Add(registrarTrabajador);
-                db.SaveChanges();
+                var oWorkerRegisterBL = new WorkerRegisterBL();
+                oWorkerRegisterBL.WorkerRegister(registrarTrabajador);
                 return RedirectToAction("Index","Home");
             }
             catch (Exception ex)
@@ -50,7 +52,7 @@ namespace VigCovidApp.Controllers
 
         private IEnumerable<ListaTrabajadoresViewModel> ListaTrabajadores(List<int> EmpresasCodigos)
         {
-            var listaTrabajadores = db.RegistroTrabajador.Where(r => EmpresasCodigos.Contains(r.EmpresaCodigo)).ToList();
+            var listaTrabajadores = db.RegistroTrabajador.Where(r => EmpresasCodigos.Contains(r.EmpresaCodigo.Value)).ToList();
             var fechaHoy = DateTime.Now.Date;
             var listaSeguimientosHoy = db.Seguimiento.Where(p => p.Fecha == fechaHoy).ToList();
 
