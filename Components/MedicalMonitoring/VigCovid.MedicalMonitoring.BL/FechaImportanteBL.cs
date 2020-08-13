@@ -70,12 +70,16 @@ namespace VigCovid.MedicalMonitoring.BL
                 var fechas = db.FechaImportante.Where(s => s.TrabajadorId == oFechaImportante.TrabajadorId && s.Descripcion == oFechaImportante.Descripcion).ToList();
                 db.FechaImportante.RemoveRange(fechas);
 
-                var oEntity = new FechaImportante();
+                if (oFechaImportante.Fecha != null)
+                {
+                    var oEntity = new FechaImportante();
 
-                oEntity.TrabajadorId = oFechaImportante.TrabajadorId;
-                oEntity.Descripcion = oFechaImportante.Descripcion;
-                oEntity.Fecha = oFechaImportante.Fecha;
-                db.FechaImportante.Add(oEntity);
+                    oEntity.TrabajadorId = oFechaImportante.TrabajadorId;
+                    oEntity.Descripcion = oFechaImportante.Descripcion;
+                    oEntity.Fecha = oFechaImportante.Fecha;
+                    db.FechaImportante.Add(oEntity);
+                    
+                }
 
                 db.SaveChanges();
 

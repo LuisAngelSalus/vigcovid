@@ -525,7 +525,7 @@ namespace VigCovidApp.Controllers
                 examen.IdExamen = item.Id;
                 examen.IdTrabajador = item.TrabajadorId;
                 examen.FechaExamen = item.Fecha;
-                examen.TipoPrueba = item.TipoPrueba == 0 ? "Prueba rápida" : "Molecular";
+                examen.TipoPrueba = item.TipoPrueba == (int)TipoExamenCovid.Pr ? "Prueba rápida" : "Molecular";
                 examen.Resultado = ObtenerResultado(item.Resultado);
 
                 examenes.Add(examen);

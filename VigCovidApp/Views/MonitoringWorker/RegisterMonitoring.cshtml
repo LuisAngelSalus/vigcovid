@@ -50,39 +50,55 @@
                                 </h4>
                             </div>
                             <!--Accordion content-->
-                            <div class="panel-collapse collapse" id="demo-acd-info-outline-3" aria-expanded="true">                                                               
-                                        <div class="card">
-                                            <div class="card-body">
-                                                <section class="cd-horizontal-timeline">
-                                                    <div class="timeline">
-                                                        <div class="events-wrapper">
-                                                            <div class="events ">
-                                                                <ol id="linea-tiempo">
-                                                                    @for (int i = 0; i < fechasImportantes.Count; i++)
-                                                                    {
-                                                                        if (i == 0)
-                                                                        {
-                                                                            <li><a href="#0" data-date="@fechasImportantes[i].DateDate" class="selected">@fechasImportantes[i].DateLine</a></li>
-                                                                        }
-                                                                        else
-                                                                        {
-                                                                            <li><a href="#0" data-date="@fechasImportantes[i].DateDate">@fechasImportantes[i].DateLine</a></li>
-                                                                        }
-                                                                    }
-                                                                </ol>
-                                                                <span class="filling-line" aria-hidden="true"></span>
-                                                            </div>
-                                                        </div>
-                                                        <ul class="cd-timeline-navigation">
-                                                            <li><a href="#0" class="prev inactive">Prev</a></li>
-                                                            <li><a href="#0" class="next">Next</a></li>
-                                                        </ul>
+                            <div class="panel-collapse collapse" id="demo-acd-info-outline-3" aria-expanded="true">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <section class="cd-horizontal-timeline" style="margin-top: 10px; margin-bottom: 10px;">
+                                            <div class="timeline">
+                                                <div class="events-wrapper">
+                                                    <div class="events ">
+                                                        <ol id="linea-tiempo">
+                                                            @for (int i = 0; i < fechasImportantes.Count; i++)
+                                                            {
+                                                                if (i == 0)
+                                                                {
+                                                                    <li><a href="#0" data-date="@fechasImportantes[i].DateDate" class="selected">@fechasImportantes[i].DateLine
+                                                                        
+                                                                    </a>
+                                                                    </li>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <li><a href="#0" data-date="@fechasImportantes[i].DateDate">@fechasImportantes[i].DateLine</a></li>
+                                                                }
+                                                            }
+                                                        </ol>
+                                                        <span class="filling-line" aria-hidden="true"></span>
                                                     </div>
-                                                </section>
+                                                </div>
+                                                <ul class="cd-timeline-navigation">
+                                                    <li><a href="#0" class="prev inactive">Prev</a></li>
+                                                    <li><a href="#0" class="next">Next</a></li>
+                                                </ul>
                                             </div>
-                                        </div>
+                                        </section>
 
+                                    </div>
+                                </div>
+                                <div class="card">
+                                    <div class="card-body">
+                                        <ul class="list-inline text-center">
+                                            <li><span class="label label-info">PS</span>Primer Seguimiento</li>
+                                            <li><span class="label label-warning">PR-+</span> P. Rápida</li>
+                                            <li><span class="label label-primary">PM-+</span> P. Molecular</li>
+                                            <li><span class="label label-dark">IAC</span> Aislamiento/Cuarentena</li>
+                                            <li><span class="label label-mint">Sx</span> Inicio Síntomas</li>
+                                            <li><span class="label label-danger">AP</span> Alta Programada</li>
+                                        </ul>
+                                    </div>
+                                </div>
                             </div>
+                         
                         </div>
                         <div class="panel panel-bordered panel-info">
                             <!--Accordion title-->
@@ -582,6 +598,7 @@
                 success: function (data) {
                     $("#modal-examen").modal("hide");
                     tablaExamenes();
+                    ActualizarLineaTiempo();
                 },
                 error: function (jqxhr, exception) {
                     alert("ocurrió un error en la operación")

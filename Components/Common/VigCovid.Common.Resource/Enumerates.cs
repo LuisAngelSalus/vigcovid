@@ -43,6 +43,12 @@ namespace VigCovid.Common.Resource
             Noserealizo = 5
         }
 
+        public enum TipoExamenCovid
+        {
+            Pr = 1,
+            Molecular = 2
+        }
+
         public enum EstadoClinico
         {
             alta = 1
