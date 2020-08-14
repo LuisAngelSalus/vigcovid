@@ -4,6 +4,8 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
 using System.Text;
 using System.Web;
 using System.Web.Mvc;
@@ -732,6 +734,24 @@ namespace VigCovidApp.Controllers
                     byte[] byteInfo = memoryStream.ToArray();
                     memoryStream.Write(byteInfo, 0, byteInfo.Length);
                     memoryStream.Position = 0;
+
+                    MailMessage mailMessage = new MailMessage("from@gmail.com", "to@gmail.com")
+                    {
+                        Subject = "subject",
+                        IsBodyHtml = true,
+                        Body = "body"
+                    };
+
+                    mailMessage.Attachments.Add(new Attachment(memoryStream, "test´.pdf"));
+                    SmtpClient smtpClient = new SmtpClient
+                    {
+                        Host = "smtp.gmail.com",
+                        Port = 587,
+                        EnableSsl = true,
+                        Credentials = new NetworkCredential("username@gmail.com", "my_password")
+                    };
+
+                    smtpClient.Send(mailMessage);
                 }
                 catch (Exception)
                 {
