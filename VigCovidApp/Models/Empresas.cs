@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using static VigCovidApp.Models.Enums;
+using static VigCovid.Common.Resource.Enums;
 
 namespace VigCovidApp.Models
 {

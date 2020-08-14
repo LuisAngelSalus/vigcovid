@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using static VigCovidApp.Models.Enums;
+using static VigCovid.Common.Resource.Enums;
 
 namespace VigCovidApp.ViewModels
 {

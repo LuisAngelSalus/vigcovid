@@ -128,7 +128,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ApplicationDbContext.cs" />
     <Compile Include="App_GlobalResources\Constants.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -148,14 +147,9 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Empresas.cs" />
-    <Compile Include="Models\Enums.cs" />
-    <Compile Include="Models\Examen.cs" />
-    <Compile Include="Models\FechaImportante.cs" />
-    <Compile Include="Models\Seguimiento.cs" />
     <Compile Include="Models\SessionModel.cs" />
     <Compile Include="Models\Usuarios.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Models\RegistroTrabajador.cs" />
     <Compile Include="Security\AuthorizeFilter.cs" />
     <Compile Include="Security\HttpSessionContext.cs" />
     <Compile Include="Utils\Export\ITextEvents.cs" />
@@ -286,6 +280,32 @@
       <Generator>GlobalResourceProxyGenerator</Generator>
       <LastGenOutput>Constants.Designer.cs</LastGenOutput>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Components\Common\VigCovid.Common.AccessData\VigCovid.Common.AccessData.csproj">
+      <Project>{0BEF1DCD-C91D-4124-9607-291919726E5C}</Project>
+      <Name>VigCovid.Common.AccessData</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Components\Common\VigCovid.Common.BE\VigCovid.Common.BE.csproj">
+      <Project>{be4be262-bcb9-46d6-8ecf-79c24379e6be}</Project>
+      <Name>VigCovid.Common.BE</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Components\Common\VigCovid.Common.Resource\VigCovid.Common.Resource.csproj">
+      <Project>{eb476dbf-8d31-483f-8f8d-ac3df8a04144}</Project>
+      <Name>VigCovid.Common.Resource</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Components\MedicalMonitoring\VigCovid.MedicalMonitoring.BL\VigCovid.MedicalMonitoring.BL.csproj">
+      <Project>{20184b58-dbe2-4116-be15-fd17aa27bdcc}</Project>
+      <Name>VigCovid.MedicalMonitoring.BL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Components\Security\VigCovid.Security\VigCovid.Security.BL.csproj">
+      <Project>{89a34e0e-6020-4bad-a33a-0da0eed5bce7}</Project>
+      <Name>VigCovid.Security.BL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Components\Worker\VigCovid.Worker.BL\VigCovid.Worker.BL.csproj">
+      <Project>{9a8cf738-996f-434b-b9b4-1a601ecadf36}</Project>
+      <Name>VigCovid.Worker.BL</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
