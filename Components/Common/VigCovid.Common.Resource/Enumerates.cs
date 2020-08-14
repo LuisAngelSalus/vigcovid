@@ -54,6 +54,13 @@ namespace VigCovid.Common.Resource
             alta = 1
         }
 
+        public enum TipoUsuario
+        {
+            Doctor = 1,
+            Analista =2,
+            SuperUsuario =3
+        }
+
         public enum TipoEstado
         {
             cuarentena = 1,

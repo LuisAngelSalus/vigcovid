@@ -154,6 +154,7 @@
     <Compile Include="Security\HttpSessionContext.cs" />
     <Compile Include="Utils\Export\ITextEvents.cs" />
     <Compile Include="ViewModels\ActualizarSeguimientoViewModel.cs" />
+    <Compile Include="ViewModels\EmpresaSedeViewModel.cs" />
     <Compile Include="ViewModels\FechaImportanteViewModels.cs" />
     <Compile Include="ViewModels\IndicadoresViewModel.cs" />
     <Compile Include="ViewModels\ListarExamenesViewModel.cs" />

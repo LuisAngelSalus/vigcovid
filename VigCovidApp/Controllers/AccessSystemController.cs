@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
+using VigCovid.Security;
 using VigCovidApp.Models;
 using VigCovidApp.ViewModels;
 
@@ -31,12 +32,12 @@ namespace VigCovidApp.Controllers
         public ActionResult Login(LoginViewModel model, string returnUrl = null)
         {
             try {
-                var empresasAsignadas = ValidateUser(model.Username.Trim().ToLower(), model.Password, model.EmpresaCodigo).ToList();
+                var empresasAsignadas = ValidateUser(model.Username.Trim().ToLower(), model.Password).ToList();
                     if (empresasAsignadas.Count() > 1)
                     {
                         var sessionModel = new SessionModel();
                         sessionModel.UserName = model.Username;
-                        sessionModel.EmpresasAsignadas = empresasAsignadas;
+                        //sessionModel.EmpresasAsignadas = empresasAsignadas;
                         FormsAuthentication.SetAuthCookie(sessionModel.UserName, false);
 
                         Security.HttpSessionContext.SetAccount(sessionModel);
@@ -58,10 +59,21 @@ namespace VigCovidApp.Controllers
             }
         }
 
-        private List<EmpresaAsignada> ValidateUser(string username, string password, int empresaCodigo)
+        private List<EmpresaSedeViewModel> ValidateUser(string username, string password)
         {
-            return new Usuarios(username, password, empresaCodigo).ValidarUsuario();
-            
+            var oAccessBL = new AccessBL();
+            var usuario = oAccessBL.ValidarUsuario(username, password);
+            if (usuario)
+            {
+                //OBETENER LISTADO DE EMPRESAS CON SEDES
+            }
+            else
+            {
+                return null;
+            }
+            return null;
+            //return new Usuarios(username, password).ValidarUsuario();
+
         }
 
         [AllowAnonymous]

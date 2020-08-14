@@ -19,6 +19,7 @@ namespace VigCovid.Common.AccessData
         public virtual DbSet<Seguimiento> Seguimiento { get; set; }
         public virtual DbSet<Examen> Examen { get; set; }
         public virtual DbSet<FechaImportante> FechaImportante { get; set; }
+        public virtual DbSet<Usuario> Usuario { get; set; }
 
     }
 }
